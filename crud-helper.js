@@ -9,5 +9,5 @@ const User = require('./models/user');
 // const Record = require('./models/record');
 
 // Local variables will come in handy for holding retrieved documents
-let user;
-let users;
+let user, task, day;
+let users, tasks, days;

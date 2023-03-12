@@ -9,8 +9,8 @@ require('dotenv').config();
 require('./config/database');
 
 // Local variables will come in handy for holding retrieved documents
-let user;
-let users;
+let user, task, day;
+let users, tasks, days;
 
 const app = express();
 
@@ -28,6 +28,7 @@ app.use(require('./config/checkToken'));
 
 // http://localhost:3001/api/users
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/task', require('./routes/api/tasks'));
 // app.use('/api/company', require('./routes/api/company'));
 // app.use('/api/employee', require('./routes/api/employee'));
 

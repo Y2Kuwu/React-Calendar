@@ -10,10 +10,10 @@ const daySchema = new Schema(
     type: Date,
     required:true
     },
-    thisMonth:
-    {
-        type: String
-    }
+    // thisMonth:
+    // {
+    //     type: String
+    // }
     //
     // moon:{}, // cycle
     // weather:{}, // local 
