@@ -8,12 +8,13 @@ const daySchema = new Schema(
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     thisDay:{  //set to current day/month as default
     type: Date,
+    default: Date.now,
     required:true
     },
-    // thisMonth:
-    // {
-    //     type: String
-    // }
+    thisMonth:
+    {
+        type: String
+    }
     //
     // moon:{}, // cycle
     // weather:{}, // local 
@@ -33,7 +34,8 @@ const daySchema = new Schema(
 
 module.exports = mongoose.model('Day', daySchema);
 
-daySchema.statics.dateMonth = function dateMonth($month)
-{
-    return this.where({thisDay: $month, thisNumber});
-}  // return in front end set state
+// daySchema.methods.dateMonth = function dateMonth(year, month, day)
+// {
+//     const currentDate = this;
+    
+// }  // return in front end set state

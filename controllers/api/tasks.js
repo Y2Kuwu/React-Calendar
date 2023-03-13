@@ -3,7 +3,7 @@ const Task = require('../../models/tasks');
 async function createTask(req,res)
 {
     try{
-    const dayTask = await Taks.create(req.body);
+    const dayTask = await Task.create(req.body);
     return res.json(dayTask)
     }
     catch(error)
@@ -12,12 +12,12 @@ async function createTask(req,res)
         alert("Could not create task")
     }
 }
-function getOneDay(req,res)
-{}
-function getOneTask()
-{}
-function getMonthTasks()
-{}
+// function getOneDay(req,res)
+// {}
+// function getOneTask()
+// {}
+// function getThisMonthTasks()
+// {}
 
 module.exports = 
 {
