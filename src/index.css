@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dayGrid
+{
+  display: inline-grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* justify-content: space-evenly; */
+  /* grid-column-start: 1;
+  grid-column-start: 7; */
+  column-count: 7;
+}
