@@ -16,8 +16,49 @@ code {
 {
   display: inline-grid;
   grid-template-columns: repeat(7, 1fr);
-  /* justify-content: space-evenly; */
+  justify-content: space-around; 
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: black;
+  margin: 2px;
+  padding: 5px;
   /* grid-column-start: 1;
   grid-column-start: 7; */
   column-count: 7;
+  border-radius: 5px;
+  font-family: 'Special Elite';
+}
+
+.dayKeys
+{
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: black;
+  background-color: white;
+  padding: 5px;
+  margin: 2px;
+  font-family: 'Special Elite';
+}
+.dayKeys:hover
+{
+  background-color: maroon;
+  color: white
+}
+
+.monthTitle
+{
+  font-family: 'Special Elite';
+}
+.dateTitle
+{
+  font-family: 'Special Elite';
+}
+/* .background
+{
+  
+} */
+.backForward
+{
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
 }

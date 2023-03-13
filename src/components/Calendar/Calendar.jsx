@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { getThisDay, getThisMonth } from "../../utilities/day-api";
 import '../../index.css';
+import { ImArrowRight } from 'react-icons/im';
+import { ImArrowLeft } from 'react-icons/im';
 
 export default class Calendar extends Component{
 constructor(props){
@@ -17,6 +19,9 @@ this.state =
 }
     this.getThisDate = this.getThisDate.bind(this, false);
     this.displayMonth = this.displayMonth.bind(this);
+    this.advanceMonth = this.advanceMonth.bind(this, false);
+    this.decreaseMonth = this.decreaseMonth.bind(this);
+
 }
 
 getCurrent()
@@ -32,6 +37,13 @@ displayGrid(count)
 
     }
 }
+
+
+decreaseMonth()
+{
+
+}
+
 
 displayMonth(currentMonth)
 {
@@ -114,19 +126,27 @@ displayMonth(currentMonth)
         //console.log(this.state.monthName)
        //this.displayGrid(this.state.dayCount)
     //    console.log(this.state.dayArray)
+    console.log()
 }
 
-getThisDate()
+getThisDate(addSub)
 {
     //const hereDate = await getThisMonth(this.state.date);
     //console.log(hereDate)
     let thisDay = new Date();
     let day = String(thisDay.getDate()).padStart(2, '0');
     let month = String(thisDay.getMonth() + 1).padStart(2, '0');
+    let updateMonth = String(thisDay.getMonth() + addSub+1).padStart(2, '0');
     let year = thisDay.getFullYear();
 
+    if(addSub == 0)
+    {
     thisDay = month + '/' + day + '/' + year;
-    
+    }
+    else if(addSub !== 0)
+    {
+    thisDay = updateMonth + '/' + day + '/' + year;
+    }
 
     this.setState({date : thisDay})
     this.displayMonth(month)
@@ -134,16 +154,33 @@ getThisDate()
     //console.log(this.state.date)
 }
 
+
+advanceMonth()
+{
+    this.getThisDate(1)
+}
+
+
 render(){
 return(
     <>
+        <div className = "background">
         <button onClick={this.getThisDate = this.getThisDate.bind(this, true)}></button>
-        <p>{this.state.date}</p>
-        <p>{this.state.monthName}</p>
+       
+        <p className = "dateTitle"><span>Today's date:</span><br></br>{this.state.date}</p>
+        <p className = "monthTitle">{this.state.monthName}</p>
+        
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey}>{d}</div>
+            <div key = {thisKey} className="dayKeys">{d}</div>
             )}
+             
+            </div>
+            </div>
+
+            <div className="backForward">
+            <button onClick={this.decreaseMonth()}><ImArrowLeft/></button>
+            <button onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button>
             </div>
     </>
 )
