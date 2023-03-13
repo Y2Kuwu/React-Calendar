@@ -14,7 +14,8 @@ this.state =
     dayArray: [],
     month: '',
     day: '',
-    date: ''
+    date: '',
+    showCal: false,
 
 }
     this.getThisDate = this.getThisDate.bind(this, false);
@@ -22,21 +23,23 @@ this.state =
     this.advanceMonth = this.advanceMonth.bind(this, false);
     this.decreaseMonth = this.decreaseMonth.bind(this);
 
-}
-
-getCurrent()
-{
+    this.showHide = this.showHide.bind(this);
 
 }
 
-displayGrid(count)
-{
-    let oneDay = [];
-    for(let countDays = 0; count < countDays; countDays++)
-    {
+// getCurrent()
+// {
 
-    }
-}
+// }
+
+// displayGrid(count)
+// {
+//     let oneDay = [];
+//     for(let countDays = 0; count < countDays; countDays++)
+//     {
+
+//     }
+// }
 
 
 decreaseMonth()
@@ -44,9 +47,17 @@ decreaseMonth()
 
 }
 
+showHide()
+{
+    this.setState(currState=>({
+        showCal: !currState.showCal
+    }));
+}
+
 
 displayMonth(currentMonth)
 {
+
     let monthDays1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
     let monthDays2 = monthDays1; 
     monthDays2.push(29,30);
@@ -127,6 +138,7 @@ displayMonth(currentMonth)
        //this.displayGrid(this.state.dayCount)
     //    console.log(this.state.dayArray)
     console.log()
+    
 }
 
 getThisDate(addSub)
@@ -150,6 +162,7 @@ getThisDate(addSub)
 
     this.setState({date : thisDay})
     this.displayMonth(month)
+    this.showHide()
     //getThisDay(month);
     //console.log(this.state.date)
 }
@@ -165,23 +178,32 @@ render(){
 return(
     <>
         <div className = "background">
-        <button onClick={this.getThisDate = this.getThisDate.bind(this, true)}></button>
-       
-        <p className = "dateTitle"><span>Today's date:</span><br></br>{this.state.date}</p>
-        <p className = "monthTitle">{this.state.monthName}</p>
+        <button className = "dateBtn"onClick={this.getThisDate = this.getThisDate.bind(this, true)}>Today's date:</button>
         
+
+ 
+        <p className = "dateTitle">{this.state.date}</p>
+        <p className = "monthTitle">{this.state.monthName}</p>
+        </div>
+
+        {this.state.showCal ?
+        <>
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
             <div key = {thisKey} className="dayKeys">{d}</div>
             )}
              
             </div>
-            </div>
+            <br></br>
 
             <div className="backForward">
-            <button onClick={this.decreaseMonth()}><ImArrowLeft/></button>
-            <button onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button>
+            <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button>
+            <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button>
             </div>
+            </>
+            :null}
+            
+             
     </>
 )
 
