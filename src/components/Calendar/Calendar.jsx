@@ -12,7 +12,7 @@ this.state =
     monthName: '',
     dayCount: '',
     dayArray: [],
-    monthNumber: 0,
+    monthNumber: '',
     day: '',
     date: '',
     showCal: false,
@@ -171,9 +171,14 @@ getThisDate()
 
         // this.setState(this.monthNumber , convertMonth)
     }
-    else if(this.state.monthNumber !== 0)
+    else if(this.state.monthNumber !== 0 && this.state.monthNumber < 12)
     {
         convertMonth = this.state.monthNumber
+        revertMonth = String(this.state.monthNumber)
+    }
+    else if(this.state.monthNumber !== 0 && this.state.monthNumber === 12)
+    {
+        this.state.monthNumber = 1;
         revertMonth = String(this.state.monthNumber)
     }
 
@@ -251,7 +256,7 @@ return(
             <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({day : thisKey+1})}}>{d}</div>
             
             )}
-             <>{console.log(this.state.day)}</>
+             {/* <>{console.log(this.state.day)}</> */}
             </div>
             <br></br>
 
