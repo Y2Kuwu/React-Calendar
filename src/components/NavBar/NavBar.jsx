@@ -22,7 +22,7 @@ export default function NavBar({user, setUser}) {
             <Link to={""} onClick={handleLogOut} className = "logOut">Logout</Link>
             <div>
             <span className = "welcome">Welcome, </span>
-            <Link to= " " className = "userName">{user.name} </Link>
+            {user.name}
             </div> 
             
 

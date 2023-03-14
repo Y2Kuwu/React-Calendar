@@ -4,7 +4,6 @@ import {Routes, Route} from 'react-router-dom';
 
 // import {Redirect} from 'react-router-dom';
 import AuthPage from '../AuthPage/AuthPage';
-import Test from '../../components/Test/Test';
 import Calendar from '../../components/Calendar/Calendar';
 
 import NavBar from '../../components/NavBar/NavBar';
@@ -27,7 +26,7 @@ function App() {
   
 
                     <Routes>
-                        <Route path="/Test" element={<Test user={user} setUser={setUser}/>}/>
+     
                         <Route path="/Calendar" element={<Calendar user={user} setUser={setUser}/>}/>
 
                     </Routes>

@@ -77,8 +77,28 @@ code {
 }
 .forward
 {
+  font-family: 'Special Elite';
   outline-style: solid;
   outline-width: 2px;
-  margin-left: 8px;
+  margin-left: 40rem;
+  margin-right: 40rem;
   border-radius: 5px;
+}
+.forward:hover
+{
+  background-color: black;
+  color: white;
+}
+
+.selectedDayBox
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Special Elite';
+  margin-top: 1rem;
+}
+.arrow
+{
+  color: red;
 }
