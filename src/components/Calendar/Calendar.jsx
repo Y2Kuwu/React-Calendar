@@ -158,27 +158,38 @@ getThisDate()
     
 
     let convertMonth = Number(month)
+    let revertMonth;
     console.log(month)
     //this.setState({monthNumber:convertMonth})
     if(this.state.monthNumber == 0)
     {
+        revertMonth = String(convertMonth)
         this.setState({
-            monthNumber: convertMonth
+            monthNumber: convertMonth+1
         });
+        
 
         // this.setState(this.monthNumber , convertMonth)
     }
     else if(this.state.monthNumber !== 0)
     {
         convertMonth = this.state.monthNumber
+        revertMonth = String(this.state.monthNumber)
         //console.log(this.state.monthNumber)
     }
+
+    // else if(this.state.monthNumber < 0)
+    // {
+    //     convertMonth = this.state.monthNumber
+    //     revertMonth = String(this.state.monthNumber)
+    //     //console.log(this.state.monthNumber)
+    // }
     
     //console.log(convertMonth)
     // convertMonth = Number(month) + convertMonth
    
-    let revertMonth = String(this.state.monthNumber)
-   // console.log(revertMonth)
+    
+   console.log(revertMonth)
     
 
    
@@ -189,7 +200,15 @@ getThisDate()
     
 
     this.setState({date : thisDay})
-    this.displayMonth(month)
+    if(convertMonth < 10)
+    {
+    this.displayMonth('0' + revertMonth)
+    }
+    else
+    {
+        this.displayMonth(revertMonth)
+    }
+
     
     //getThisDay(month);
     //console.log(this.state.date)
@@ -239,6 +258,7 @@ return(
             <div className="backForward">
             {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
+            <button className= "back"onClick={()=>{this.decreaseMonth()}}><ImArrowLeft/></button>
             <button className= "forward"onClick={()=>{this.advanceMonth()}}><ImArrowRight/></button>
             </div>
             </>
