@@ -12,7 +12,7 @@ this.state =
     monthName: '',
     dayCount: '',
     dayArray: [],
-    month: '',
+    monthNumber: 0,
     day: '',
     date: '',
     showCal: false,
@@ -20,7 +20,7 @@ this.state =
 }
     this.getThisDate = this.getThisDate.bind(this, false);
     this.displayMonth = this.displayMonth.bind(this);
-    this.advanceMonth = this.advanceMonth.bind(this, false);
+    this.advanceMonth = this.advanceMonth.bind(this);
     this.decreaseMonth = this.decreaseMonth.bind(this);
 
     this.showHide = this.showHide.bind(this);
@@ -76,8 +76,7 @@ displayMonth(currentMonth)
         
         break;
         case '02':
-       
-
+    
         this.setState({monthName : 'February'});
         this.setState({dayCount : 28})
         this.setState({dayArray: monthDays1})
@@ -141,28 +140,57 @@ displayMonth(currentMonth)
     
 }
 
-getThisDate(addSub)
+getThisDate()
 {
+    this.showHide()
+    this.setState({showCal:true})
     //const hereDate = await getThisMonth(this.state.date);
     //console.log(hereDate)
     let thisDay = new Date();
     let day = String(thisDay.getDate()).padStart(2, '0');
     let month = String(thisDay.getMonth() + 1).padStart(2, '0');
-    let updateMonth = String(thisDay.getMonth() + addSub+1).padStart(2, '0');
+    //
+    // let updateMonth = String(thisDay.getMonth() + (addSub+1)).padStart(2, '0');
+    //
     let year = thisDay.getFullYear();
 
-    if(addSub == 0)
+    ///
+    
+
+    let convertMonth = Number(month)
+    console.log(month)
+    //this.setState({monthNumber:convertMonth})
+    if(this.state.monthNumber == 0)
     {
-    thisDay = month + '/' + day + '/' + year;
+        this.setState({
+            monthNumber: convertMonth
+        });
+
+        // this.setState(this.monthNumber , convertMonth)
     }
-    else if(addSub !== 0)
+    else if(this.state.monthNumber !== 0)
     {
-    thisDay = updateMonth + '/' + day + '/' + year;
+        convertMonth = this.state.monthNumber
+        //console.log(this.state.monthNumber)
     }
+    
+    //console.log(convertMonth)
+    // convertMonth = Number(month) + convertMonth
+   
+    let revertMonth = String(this.state.monthNumber)
+   // console.log(revertMonth)
+    
+
+   
+    thisDay = revertMonth + '/' + day + '/' + year;
+    
+   
+    //thisDay = revertMonth + '/' + day + '/' + year;
+    
 
     this.setState({date : thisDay})
     this.displayMonth(month)
-    this.showHide()
+    
     //getThisDay(month);
     //console.log(this.state.date)
 }
@@ -170,7 +198,19 @@ getThisDate(addSub)
 
 advanceMonth()
 {
-    this.getThisDate(1)
+  
+    this.setState(currMonth=>({
+        monthNumber: currMonth.monthNumber+1
+    }));
+    this.getThisDate()
+}
+decreaseMonth()
+{
+    // this.setState(this.monthNumber , this.monthNumber-1)
+    this.setState(currMonth=>({
+        monthNumber: currMonth.monthNumber-1
+    }));
+    this.getThisDate()
 }
 
 
@@ -197,8 +237,9 @@ return(
             <br></br>
 
             <div className="backForward">
-            <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button>
-            <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button>
+            {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
+            {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
+            <button className= "forward"onClick={()=>{this.advanceMonth()}}><ImArrowRight/></button>
             </div>
             </>
             :null}
