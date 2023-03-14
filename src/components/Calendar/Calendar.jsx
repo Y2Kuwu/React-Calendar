@@ -165,7 +165,7 @@ getThisDate()
     {
         revertMonth = String(convertMonth)
         this.setState({
-            monthNumber: convertMonth+1
+            monthNumber: convertMonth+1 //needs to be be addressed for subtraction
         });
         
 
@@ -175,7 +175,6 @@ getThisDate()
     {
         convertMonth = this.state.monthNumber
         revertMonth = String(this.state.monthNumber)
-        //console.log(this.state.monthNumber)
     }
 
     // else if(this.state.monthNumber < 0)
@@ -249,16 +248,17 @@ return(
         <>
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey} className="dayKeys">{d}</div>
+            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({day : thisKey+1})}}>{d}</div>
+            
             )}
-             
+             <>{console.log(this.state.day)}</>
             </div>
             <br></br>
 
             <div className="backForward">
             {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
-            <button className= "back"onClick={()=>{this.decreaseMonth()}}><ImArrowLeft/></button>
+            {/* <button className= "back"onClick={()=>{this.decreaseMonth()}}><ImArrowLeft/></button> */}
             <button className= "forward"onClick={()=>{this.advanceMonth()}}><ImArrowRight/></button>
             </div>
             </>
