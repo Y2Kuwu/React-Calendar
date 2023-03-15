@@ -5,7 +5,15 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema(
 {
-    day: {type: Schema.Types.ObjectId, ref: 'Day', required: true},
+    //day: {type: Schema.Types.ObjectId, ref: 'Day', required: true},
+    user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    date: 
+    [{
+        month: String,
+        day: String,
+        year: String,
+    }],
+
     taskName: 
     {type: String, required: true},
     category:

@@ -11,3 +11,8 @@ export async function getThisDay(day)
 {
     return sendRequest(BASE_URL, day)
 }
+
+export async function createTask(task)
+{
+    return sendRequest(BASE_URL, 'POST', task);
+}
