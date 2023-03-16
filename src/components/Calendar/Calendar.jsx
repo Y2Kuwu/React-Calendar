@@ -1,9 +1,10 @@
-import { Component } from "react";
+import { Component, Fragment } from "react";
 import { getThisDay, getThisMonth } from "../../utilities/day-api";
 import '../../index.css';
 import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
+import { getUser } from "../../utilities/users-service";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -20,6 +21,7 @@ this.state =
 
     fullDate: '',
     showCal: false,
+    changeView: false,
 
 }
     this.getThisDate = this.getThisDate.bind(this, false);
@@ -28,10 +30,23 @@ this.state =
     this.decreaseMonth = this.decreaseMonth.bind(this);
 
     this.showHide = this.showHide.bind(this);
+    // this.viewChange = this.viewChange.bind(this)
     this.sendDate = this.sendDate.bind(this);
     this.handleChange = this.handleChange.bind(this)
+
+    this.test = this.test.bind(this);
 }
 
+    test()
+    {
+        const img = getUser().profilePicture;
+        // return(
+        //     <>
+        //         {img}
+        //     </>
+
+        // )
+    }
 // getCurrent()
 // {
 
@@ -60,6 +75,17 @@ showHide()
         showCal: !currState.showCal
     }));
 }
+
+// viewChange()
+// {
+//     this.setState(currState=>({
+//         changeView: currState.this.props.thisView
+       
+//     }));
+//     console.log('here')
+// }
+
+
 
 
 displayMonth(currentMonth)
@@ -270,13 +296,22 @@ return(
 
         {this.state.showCal ?
         <>
+         
+         <Fragment>
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
             <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1})}}>{d}</div>
             
             )}
-            
+          
+          
             </div>
+            <div className = "newAgenda">
+            <Agenda data={this.state.monthName+' '+this.state.selectedDay+' '+this.state.selectedYear}/>
+            </div>
+            {/* show month // show day // show year //search*/}
+            
+            </Fragment>
             <div className="selectedDayBox">
             
             <p>Selected day: <span>
@@ -285,20 +320,23 @@ return(
             {/* {console.log(this.state.fullDate)} */}
             
             <button className= "forward"onClick={()=>{this.advanceMonth()}}>next month<ImArrowRight className="arrow"/></button>
+            
             </div>
             {/* <div className="backForward"> */}
             
 
-            <Agenda data={this.state.monthName+' '+this.state.selectedDay+' '+this.state.selectedYear}/>
+            
             </>
             
             
             :null}
+
+            <button onClick={this.test()}></button>
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
             {/* <button className= "back"onClick={()=>{this.decreaseMonth()}}><ImArrowLeft/></button> */}
-             
+            
     </>
 )
 

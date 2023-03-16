@@ -1,11 +1,20 @@
-const Task = require('../../models/tasks');
+const Task = require('../../models/task');
 
-async function createTask(req,res)
+function createTask(req,res)
 {
     try{
-    const userTask = Task.find({user:req.user._id});
-    const dayTask = await Task.create(req.body);
-    return res.json(dayTask)
+    // const userTask = Task.find({user:req.body});
+    userTask =  new Task(
+        {
+            user: req.body.user,
+            taskName:req.body.taskName,
+            category:req.body.category,
+        }
+    );
+    userTask.save()
+    console.log('here')
+   
+    res.json(userTask)
     }
     catch(error)
     {

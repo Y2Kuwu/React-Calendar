@@ -33,6 +33,17 @@ async function login(req, res) {
     }
 }
 
+async function userImage(req,res){
+    try {
+        const user = await User.findOne({_id : req.user._id});
+        const pic = await user.findOne({profilePicture : user.profilePicture})
+        if (!pic) next();
+        if(pic) return res.json(pic)
+    } catch (err) {
+        res.status(400).json('Bad Credentials');
+    }
+}
+
 function checkToken(req, res) {
     console.log('req.user', req.user);
     res.json(req.exp);
@@ -41,5 +52,6 @@ function checkToken(req, res) {
 module.exports = {
     create,
     login,
-    checkToken
+    checkToken,
+    userImage,
 };

@@ -38,6 +38,7 @@ code {
   padding: 5px;
   margin: 2px;
   font-family: 'Special Elite';
+  position: static;
 }
 .dayKeys:hover
 {
@@ -101,4 +102,79 @@ code {
 .arrow
 {
   color: red;
+}
+
+.agBtn
+{
+  background-color: transparent;
+  border-color: transparent;
+  font-family: 'Special Elite';
+}
+.agBtn:hover
+{
+  border-color: black;
+  border-radius: 5px;
+
+}
+
+.newAgenda
+{
+ margin-left: 1rem;
+ position: absolute;
+ display: inline-table;
+ font-family: 'Special Elite';
+}
+.newAg
+{
+  font-family: 'Special Elite';
+  text-align: center;
+}
+
+.create
+{
+  display: grid;
+  justify-content: center;
+}
+
+.saveTask
+{
+  font-family: 'Special Elite';
+
+}
+.saveTask:hover
+{
+  
+  background-color: red;
+  border-radius: 5px;
+}
+
+#sev
+{
+  padding: .2rem;
+  margin-top: .25rem;
+  background-image: linear-gradient(to right, white,gray,black);
+}
+.sevBar
+{
+  color: black
+}
+.navi
+{
+  font-family: 'Special Elite';
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  display: grid;
+  justify-content: left;
+  margin: 1rem;
+  background-color: aqua;
+}
+.profile
+{
+  max-width: 3rem;
+  background-color: white;
+  outline-style: solid;
+  outline-color: black;
+  border-radius: 5px;
+  margin: .25rem;
 }

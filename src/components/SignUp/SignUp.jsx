@@ -13,6 +13,7 @@ export default class SignUp extends Component {
         email: '',
         password: '',
         confirm: '',
+        profilePicture: '',
         error: '',
         
     }
@@ -69,6 +70,7 @@ export default class SignUp extends Component {
                         <label className = "loginLabels">Confirm</label>
                         <input type="password" name="confirm"className = "loginVals" value={this.state.confirm} onChange={this.handleChange}
                                required/>
+                        <input type='file' name ="profilePicture" className='loginVals' value={this.state.profilePicture} onChange={this.handleChange}/>
                         <button type="submit" className = "login" disabled={disable}>SIGN UP</button>
                         
                     </form>
