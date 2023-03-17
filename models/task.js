@@ -7,12 +7,14 @@ const taskSchema = new Schema(
 {
     //day: {type: Schema.Types.ObjectId, ref: 'Day', required: true},
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    // date: 
-    // [{
-    //     month: String,
-    //     day: String,
-    //     year: String,
-    // }],
+    
+
+    date: 
+    [{
+        month:{type:String},
+        day:{type:Number},
+        year:{type:Number},
+    }],
 
     taskName: 
     {type: String, required: true},

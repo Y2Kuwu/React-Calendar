@@ -19,6 +19,7 @@ this.state =
     selectedYear: '',
     date: '',
 
+    thisDayCap: [],
     fullDate: '',
     showCal: false,
     changeView: false,
@@ -33,9 +34,18 @@ this.state =
     // this.viewChange = this.viewChange.bind(this)
     this.sendDate = this.sendDate.bind(this);
     this.handleChange = this.handleChange.bind(this)
+    this.capDay = this.capDay.bind(this);
 
     this.test = this.test.bind(this);
 }
+
+    capDay()
+    {
+        // let full = this.state. 
+        this.setState(giveFull =>
+        ({thisDayCap : [giveFull.monthName,giveFull.selectedDay,giveFull.selectedYear]}))
+        // console.log(this.state.thisDayCap)
+    }
 
     test()
     {
@@ -300,14 +310,17 @@ return(
          <Fragment>
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1})}}>{d}</div>
-            
+            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay()}}>{d}</div>
+
             )}
-          
+{/* {console.log(this.state.thisDayCap)} */}
           
             </div>
             <div className = "newAgenda">
-            <Agenda data={this.state.monthName+' '+this.state.selectedDay+' '+this.state.selectedYear}/>
+            {/* <Agenda data={this.state.monthName+''+this.state.selectedDay+''+this.state.selectedYear}/> */}
+            <Agenda data={this.state.thisDayCap}/>
+           
+
             </div>
             {/* show month // show day // show year //search*/}
             

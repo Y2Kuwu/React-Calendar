@@ -11,7 +11,7 @@ export default class Agenda extends Component{
       createNew: false,
 
       user: getUser()._id,
-      thisDate : '',
+      thisDate : [],
       taskName: '',
       category: '',
       severity: '',
@@ -25,6 +25,7 @@ export default class Agenda extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.createOne = this.createOne.bind(this);
+        this.bindDateData = this.bindDateData.bind(this);
     }
 
     createOne()
@@ -32,6 +33,13 @@ export default class Agenda extends Component{
         this.setState(currState=>({
             createNew: !currState.createNew
         }));
+        // this.bindDateData()
+    }
+
+    bindDateData()
+    {
+        //console.log(this.props.data)
+        this.setState(this.thisDate , this.props.data)
     }
 
      handleSubmit (evt){
@@ -40,12 +48,12 @@ export default class Agenda extends Component{
           
            
          evt.preventDefault();
-         const {user, taskName , category} = this.state;
+         const {user, taskName , category, thisDate} = this.state;
          console.log('here')
          createTask(this.state,
              {
                 user:user,
-                //thisDate:this.props.data,
+                thisDate:thisDate,
                 taskName:taskName,
                 category:category,
                 // severity:severity
@@ -73,6 +81,8 @@ export default class Agenda extends Component{
     {
         return(
             <>
+          
+
                      <form autoComplete='false'  onSubmit={this.handleSubmit}>
                      {/* <label className='newTask'>Task:</label> */}
                      <div className ="create">
@@ -105,7 +115,6 @@ export default class Agenda extends Component{
     render(){
     return(
         <>
-     
             <button className = "agBtn"onClick={()=>{this.createOne()}}>Add a task</button>
 
             {this.state.createNew ? 

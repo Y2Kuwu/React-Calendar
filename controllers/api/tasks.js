@@ -7,12 +7,13 @@ function createTask(req,res)
     userTask =  new Task(
         {
             user: req.body.user,
+            date: req.body.date,
             taskName:req.body.taskName,
             category:req.body.category,
         }
     );
     userTask.save()
-    console.log('here')
+    console.log(req.body.date)
    
     res.json(userTask)
     }
