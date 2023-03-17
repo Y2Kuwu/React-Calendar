@@ -313,13 +313,13 @@ return(
             <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay()}}>{d}</div>
 
             )}
-{/* {console.log(this.state.thisDayCap)} */}
+ 
           
             </div>
             <div className = "newAgenda">
             {/* <Agenda data={this.state.monthName+''+this.state.selectedDay+''+this.state.selectedYear}/> */}
             <Agenda data={this.state.thisDayCap}/>
-           
+            
 
             </div>
             {/* show month // show day // show year //search*/}

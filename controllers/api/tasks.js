@@ -7,14 +7,18 @@ function createTask(req,res)
     userTask =  new Task(
         {
             user: req.body.user,
-            date: req.body.date,
+            // date: req.body.date,
+            month: req.body.month,
+            day: req.body.day,
+            year: req.body.year,
             taskName:req.body.taskName,
             category:req.body.category,
         }
     );
     userTask.save()
-    console.log(req.body.date)
-   
+ 
+    //console.log(userTask.date.map(j=>{j}))
+        console.log(userTask.month)
     res.json(userTask)
     }
     catch(error)

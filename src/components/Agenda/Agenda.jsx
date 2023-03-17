@@ -12,6 +12,11 @@ export default class Agenda extends Component{
 
       user: getUser()._id,
       thisDate : [],
+
+      month: '',
+      day: '',
+      year: '',
+
       taskName: '',
       category: '',
       severity: '',
@@ -39,27 +44,30 @@ export default class Agenda extends Component{
     bindDateData()
     {
         //console.log(this.props.data)
-        this.setState(this.thisDate , this.props.data)
+        this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
     }
 
      handleSubmit (evt){
+        this.bindDateData()
          try{
-       
+            
           
            
          evt.preventDefault();
-         const {user, taskName , category, thisDate} = this.state;
-         console.log('here')
+         const {user, taskName , category, month, day, year} = this.state;
          createTask(this.state,
              {
                 user:user,
-                thisDate:thisDate,
+                month:month,
+                day:day,
+                year:year,
+                //thisDate:thisDate,
                 taskName:taskName,
                 category:category,
                 // severity:severity
 
              })
-     
+            
            alert('success');
            
        }
@@ -81,7 +89,7 @@ export default class Agenda extends Component{
     {
         return(
             <>
-          
+                    
 
                      <form autoComplete='false'  onSubmit={this.handleSubmit}>
                      {/* <label className='newTask'>Task:</label> */}
@@ -115,6 +123,7 @@ export default class Agenda extends Component{
     render(){
     return(
         <>
+          {/* {console.log(this.state.month)} */}
             <button className = "agBtn"onClick={()=>{this.createOne()}}>Add a task</button>
 
             {this.state.createNew ? 
