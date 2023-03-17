@@ -4,5 +4,6 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn')
 const taskCtrl = require('../../controllers/api/tasks');
 
 router.post('/', taskCtrl.createTask, ensureLoggedIn);
+router.get('/', taskCtrl.getOneDay, ensureLoggedIn);
 
 module.exports = router;

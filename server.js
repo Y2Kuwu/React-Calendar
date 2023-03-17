@@ -28,8 +28,8 @@ app.use(require('./config/checkToken'));
 
 // http://localhost:3001/api/users
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/task', require('./routes/api/tasks'));
-app.use('/api/day', require('./routes/api/days'));
+app.use('/api/tasks', require('./routes/api/tasks'));
+// app.use('/api/day', require('./routes/api/days'));
 // app.use('/api/employee', require('./routes/api/employee'));
 
 // app.use('/api/record', require('./routes/api/record'));

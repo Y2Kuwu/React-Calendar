@@ -28,6 +28,10 @@ const userSchema = new Schema({
         minLength: 3,
         required: true
     },
+    // profilePicture: {
+    //     type: Image,
+    //     required: false
+    // }
     
     // company: [{type:Schema.Types.ObjecId,ref: 'Company'}],
     // employee: [{type:Schema.Types.ObjecId,ref: 'Employee'}],

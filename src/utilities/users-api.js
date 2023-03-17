@@ -43,3 +43,8 @@ export function checkToken() {
     // http://localhost:3001/api/users/check-token
     return sendRequest(`${BASE_URL}/check-token`);
 }
+
+export async function userImage(thisImage)
+{
+    return sendRequest({BASE_URL}, thisImage);
+}

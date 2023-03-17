@@ -1,7 +1,11 @@
 import {Link} from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
+import * as userData from '../../utilities/users-api';
 import React from 'react';
+import prof from './prof.png'
+import { userImage } from '../../utilities/users-api';
 
+let userPic;
 
 export default function NavBar({user, setUser}) {
 
@@ -9,25 +13,27 @@ export default function NavBar({user, setUser}) {
         userService.logOut();
         setUser(null);
     }
-        //if employee == super display my companies and user information
-        //if employee !== super display track record and user information
        
+    async function getThisUser()
+    {
+        userPic = await userData.userImage();
+    }
+
+    //for user picture getUser()..
 
     return (
-        <nav>
-       
-           
+        <nav className='navi'>
             
-          
-            <Link to={""} onClick={handleLogOut} className = "logOut">Logout</Link>
             <div>
-            <span className = "welcome">Welcome, </span>
-            <Link to= " " className = "userName">{user.name} </Link>
+            <span className = "welcome">Welcome </span>
+            <br></br>
+            <img src ={prof} className="profile"/>
+            {/* <img src ={getThisUser()} className="profile"/> */}
+            <br></br>
+            <Link to={""} onClick={handleLogOut} className = "logOut">Logout</Link>
+            
+        
             </div> 
-            
-
-            
-
         </nav>
         
             
