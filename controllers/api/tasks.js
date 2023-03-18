@@ -13,12 +13,13 @@ function createTask(req,res)
             year: req.body.year,
             taskName:req.body.taskName,
             category:req.body.category,
+            severity:req.body.severity,
         }
     );
     userTask.save()
  
     //console.log(userTask.date.map(j=>{j}))
-        console.log(userTask.month)
+    console.log(userTask.month)
     res.json(userTask)
     }
     catch(error)
