@@ -1,8 +1,8 @@
 import { Component, Fragment } from "react";
 import { getUser } from "../../utilities/users-service";
 import { createTask } from "../../utilities/tasks-api";
-import AlertDismissable from "./Alert";
-
+//import AlertDismissable from "./Alert";
+import Alert  from "react-bootstrap/Alert";
 
 export default class Agenda extends Component{
     constructor(props){
@@ -70,8 +70,8 @@ export default class Agenda extends Component{
         this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
     }
 
-     handleSubmit (evt){
-        this.bindDateData()
+    handleSubmit (evt){
+       
          try{
             
           
@@ -110,6 +110,7 @@ export default class Agenda extends Component{
 
     createATask()
     {
+        
         return(
             <>
                     
@@ -150,7 +151,7 @@ export default class Agenda extends Component{
             
 
           {/* {console.log(this.state.month)} */}
-            <button className = "agBtn"onClick={()=>{this.createOne()}}>Add a task</button>
+            <button className = "agBtn"onClick={()=>{this.createOne();this.bindDateData()}}>Add a task</button>
 
             {this.state.createNew ? 
             <>
@@ -159,11 +160,13 @@ export default class Agenda extends Component{
             : null}
            {/* {console.log(this.state.thisDate)} */}
             {this.state.alert ?
-            <>
-                <AlertDismissable />
-            </>
-            :null}
+            <div className="warning">
+            <p>Please select a date before continuing</p>
+            <p>Otherwise task will not be saved to agenda.</p>
+            </div>
 
+            :null}
+           
         </>
 
         

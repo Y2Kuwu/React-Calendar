@@ -5,6 +5,7 @@ import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
+import GetOne from "../GetOne/GetOne";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -35,6 +36,7 @@ this.state =
     this.handleChange = this.handleChange.bind(this)
     this.capDay = this.capDay.bind(this);
 
+    this.dis = this.dis.bind(this);
 }
 
     capDay()
@@ -62,12 +64,12 @@ handleChange(val)
 
 }
 
-showHide()
+showHide() //2nd
 {
     this.setState(currState=>({
         showCal: !currState.showCal
     }));
-    
+    console.log(this.state.fullDate)
 }
 
 // viewChange()
@@ -80,7 +82,10 @@ showHide()
 // }
 
 
-
+dis()
+{
+    console.log(this.state.monthName)
+}
 
 displayMonth(currentMonth)
 {
@@ -108,6 +113,7 @@ displayMonth(currentMonth)
         this.setState({monthName : 'March'});
         this.setState({dayCount : 31})
         this.setState({dayArray: monthDays3})
+        
         break;
         case '04':
         this.setState({monthName : 'April'});
@@ -155,17 +161,17 @@ displayMonth(currentMonth)
         this.setState({dayArray: monthDays3})
         break;
         }
-   
-
+        
+       
     
 }
 
-getThisDate()
+getThisDate() //1st
 {
     
-    this.showHide()
+    this.showHide() //2nd
     this.setState({showCal:true})
-    this.capDay()
+    this.capDay() //3rd //only rec day data
     //const hereDate = await getThisMonth(this.state.date);
     //console.log(hereDate)
     let thisDay = new Date();
@@ -220,11 +226,13 @@ getThisDate()
     this.setState({date : thisDay})
     if(convertMonth < 10)
     {
-    this.displayMonth('0' + revertMonth)
+    this.displayMonth('0' + revertMonth) //4th convert month
+
     }
     else
     {
         this.displayMonth(revertMonth)
+    
     }
     console.log(this.state.date)
 }
@@ -249,7 +257,7 @@ advanceMonth()
 render(){
 return(
     <>
-        
+        <GetOne data = {this.state.thisDayCap}/>
         
         <div className = "background">
         <button className = "dateBtn"onClick={this.getThisDate = this.getThisDate.bind(this, true)}>Today's date:</button>
@@ -289,7 +297,10 @@ return(
             
             <p>Selected day: <span>
             <br></br>
+            {/* {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}</span></p> */}
+            
             {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}</span></p>
+
             {/* {console.log(this.state.fullDate)} */}
             
             <button className= "forward"onClick={()=>{this.advanceMonth()}}>next month<ImArrowRight className="arrow"/></button>

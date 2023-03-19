@@ -29,7 +29,7 @@ function App() {
                     <Routes>
      
                         <Route path="/" element={<Calendar user={user} setUser={setUser}/>}/>
-                        {/* <Route path="/" element={<Agenda user={user} setUser={setUser}/>}/> */}
+                        <Route path="/" element={<Agenda user={user} setUser={setUser}/>}/>
                     </Routes>
                     
                

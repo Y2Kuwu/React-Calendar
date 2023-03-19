@@ -31,11 +31,15 @@ function createTask(req,res)
 async function getOneDay(req,res)
 {
     try{
-        const userDates = Task.find({user:req.user._id, date:req.body.date})
+        const userDates = Task.find(req)
 
-        const dayTask = await userDates.find({taskName: taskName});
-
-        return res.json(dayTask)
+        const dayTask = await userDates.find({month:req.body.month, month:req.body.day, month:req.body.year});
+        
+        //     console.log(dayTask)
+         //const todaysTasks = dayTask.find({taskName:taskName})
+        // const mapTasks = todaysTasks.map(task=>({task}))
+        console.log(dayTask)
+        res.json(dayTask)
 
         }
         catch(error)
@@ -44,10 +48,7 @@ async function getOneDay(req,res)
             alert("Could not create task")
         }
 }
-// function getOneTask()
-// {}
-// function getThisMonthTasks()
-// {}
+
 
 module.exports = 
 {
