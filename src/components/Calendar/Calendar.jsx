@@ -25,6 +25,7 @@ this.state =
     fullDate: '',
     showCal: false,
     changeView: false,
+    ready: false,
 
 }
     this.getThisDate = this.getThisDate.bind(this, false);
@@ -36,7 +37,7 @@ this.state =
     this.handleChange = this.handleChange.bind(this)
     this.capDay = this.capDay.bind(this);
 
-    this.dis = this.dis.bind(this);
+    this.disReady = this.disReady.bind(this);
 }
 
     capDay()
@@ -82,9 +83,11 @@ showHide() //2nd
 // }
 
 
-dis()
+disReady()
 {
-    console.log(this.state.monthName)
+    this.setState(currState=>({
+        ready: !currState.ready
+    }));
 }
 
 displayMonth(currentMonth)
@@ -257,7 +260,7 @@ advanceMonth()
 render(){
 return(
     <>
-        <GetOne data = {this.state.thisDayCap}/>
+        
         
         <div className = "background">
         <button className = "dateBtn"onClick={this.getThisDate = this.getThisDate.bind(this, true)}>Today's date:</button>
@@ -278,7 +281,7 @@ return(
 
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay()}}>{d}</div>
+            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay();this.disReady()}}>{d}</div>
 
             )}
 
@@ -315,7 +318,11 @@ return(
             
             :null}
 
-           
+            {this.state.ready?
+        <>
+            <GetOne data = {this.state.thisDayCap}/>
+        </>
+            :null}
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
