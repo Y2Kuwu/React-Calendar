@@ -10,8 +10,8 @@ const taskSchema = new Schema(
     
 
     month:{type:String},
-    day:{type:String},
-    year:{type:String},
+    day:{type:Number},
+    year:{type:Number},
 
     taskName: 
     {type: String, required: true},

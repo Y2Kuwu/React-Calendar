@@ -10,13 +10,13 @@ export default class GetOne extends Component{
 
       user: getUser()._id,
       
-    //   month: '',
-    //   day: '',
-    //   year: '',
+      month: '',
+      day: '',
+      year: '',
 
-      month: this.props.data[0],
-      day: this.props.data[1],
-      year: this.props.data[2],
+    //   month: this.props.data[0],
+    //   day: this.props.data[1],
+    //   year: this.props.data[2],
 
       tasks: {},
     }
@@ -24,22 +24,28 @@ export default class GetOne extends Component{
 }
     async getDay(){
         
+        return getOneDay(this.state.user, this.state.month , this.state.day, this.state.year)
+
+        //console.log(this.state.user, this.state.month , this.state.day, this.state.year)
+        //return getOneDay()
+        // const {user,month,day,year} = this.state
+        // const thisState = (this.state.user, this.state.month , this.state.day, this.state.year)
         
-        //return getOneDay(this.state)
-        const {user,month,day,year} = this.state
-        await getOneDay(this.state,
-            {
-                user:user,
-                month:month,
-                day:day,
-                year:year
-            })
+        
+        
+        //await getOneDay()
+            // {
+            //     user:user,
+            //     month:month,
+            //     day:day,
+            //     year:year
+            // })
         
         }
 
     componentDidMount()
     {
-        // this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
+        this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
         this.getDay().then(result => this.setState({
             tasks : result
         }))
@@ -61,14 +67,14 @@ export default class GetOne extends Component{
 
 render(){
     return(
-       Object.values(this.state.tasks).map((name ,idx)=> (
-             <div className = "jobTitleList" key = {idx}>
+    //    Object.values(this.state.tasks).map((name ,idx)=> (
+    //          <div className = "jobTitleList" key = {idx}>
 
-                <p>{name.taskName}</p>
-             </div>)))
-    
+    //             <p>{name.taskName}</p>
+    //          </div>)))
+    <></>
        
-
+    )
              
                        
 }

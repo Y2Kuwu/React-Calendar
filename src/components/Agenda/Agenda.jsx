@@ -20,7 +20,7 @@ export default class Agenda extends Component{
 
       taskName: '',
       category: '',
-      severity: 1,
+      severity: '',
       involvedParties: '', //[]
       reminder: '', // []
 
@@ -68,6 +68,7 @@ export default class Agenda extends Component{
 
 
         this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
+        console.log(this.state.day)
     }
 
     handleSubmit (evt){

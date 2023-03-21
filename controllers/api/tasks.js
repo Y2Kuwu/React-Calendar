@@ -1,3 +1,4 @@
+const { where } = require('../../models/task');
 const Task = require('../../models/task');
 
 function createTask(req,res)
@@ -31,20 +32,33 @@ function createTask(req,res)
 async function getOneDay(req,res)
 {
     try{
-        const userDates = Task.find({user:req.user._id})
+        // const userDates = Task.find({user:req.user._id, month:req.body.month,day:req.body.day,year:req.body.year}, {taskName: 1})
+        const userDates = await Task.find({month:req.body.month,day:req.body.day,year:req.body.year})
 
-        const dayTask = await userDates.find({month:req.body.month, day:req.body.day, year:req.body.year});
         
+        //const newNames = userDates.get('taskName')
+        // const dayTask = await userDates.find({month:req.body.month, day:req.body.day, year:req.body.year});
+       // const dayTask = await userDates.find({userDates:userDates._id})
+
+        // const dayTask = userDates.find(where ({month:req.body.month} , {day:req.body.day} , {year:req.body.year}))
+        //const taskHere = dayTask.find({id:id})
         //     console.log(dayTask)
         //const todaysTasks = await userDates.find({})
+       
 
-        //console.log(dayTask)
+        
 
-        //const mapTasks = dayTask.map(task=>({task}))
-        console.log(dayTask)
-        // console.log(userDates.map(task=>({task})))
+    //    const mapDates = userDates.map(task=>({task}))
+    //    console.log(mapDates)
+       //console.log(taskHere)
+        // console.log(userDates.map(m => m.taskName))
+
+
+     //console.log(userDates.map(task=>(task.taskName)))
+
+     console.log(userDates)
         // res.json(userDates.map(task=>({task})))
-        res.json(dayTask)
+    //    res.json(userDates.map(m => m.taskName))
         }
         catch(error)
         {
