@@ -32,10 +32,17 @@ function createTask(req,res)
 async function getOneDay(req,res)
 {
     try{
-        // const userDates = Task.find({user:req.user._id, month:req.body.month,day:req.body.day,year:req.body.year}, {taskName: 1})
-        const userDates = await Task.find({month:req.body.month,day:req.body.day,year:req.body.year})
-
+        const user = Task.find({user:req.user._id})
+        const userDate = await user.find({}, {'month':req.month, 'day':req.day, 'year':req.year})
+        // , month:req.month,day:req.day,year:req.body.year
+        //const userDates = await Task.find({user:req.user._id,month:req.body.month,day:req.body.day,year:req.body.year})
         
+        //const findUsr = Task.find({user:req.user._id})
+        //const findDate = await findUsr.find({month:req.body.month,day:req.body.day,year:req.body.year})
+        // const f = userDate.map(tasks=>(tasks.taskName))
+        console.log(userDate.count)
+        res.json(userDate)
+       
         //const newNames = userDates.get('taskName')
         // const dayTask = await userDates.find({month:req.body.month, day:req.body.day, year:req.body.year});
        // const dayTask = await userDates.find({userDates:userDates._id})
@@ -56,7 +63,7 @@ async function getOneDay(req,res)
 
      //console.log(userDates.map(task=>(task.taskName)))
 
-     console.log(userDates)
+     //console.log(userDates)
         // res.json(userDates.map(task=>({task})))
     //    res.json(userDates.map(m => m.taskName))
         }

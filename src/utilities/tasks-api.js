@@ -8,5 +8,5 @@ export async function createTask(create)
 
 export async function getOneDay(id)
 {
-    return sendRequest(BASE_URL);
+    return sendRequest(`${BASE_URL}/${id}`);
 }
