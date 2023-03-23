@@ -1,7 +1,8 @@
-import { Component } from "react";
+import { Component, Fragment } from "react";
 import { getUser } from "../../utilities/users-service";
 import { createTask } from "../../utilities/tasks-api";
-import Calendar from "../Calendar/Calendar";
+//import AlertDismissable from "./Alert";
+import Alert  from "react-bootstrap/Alert";
 
 export default class Agenda extends Component{
     constructor(props){
@@ -23,6 +24,8 @@ export default class Agenda extends Component{
       involvedParties: '', //[]
       reminder: '', // []
 
+      alert: false,
+
     }
         this.getDateList = this.getDateList.bind(this);  //send id / date to check schdeduled events 
         this.createATask = this.createATask.bind(this);
@@ -31,30 +34,51 @@ export default class Agenda extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.createOne = this.createOne.bind(this);
         this.bindDateData = this.bindDateData.bind(this);
+    
     }
+
+ 
 
     createOne()
     {
+        
+
         this.setState(currState=>({
             createNew: !currState.createNew
         }));
-        // this.bindDateData()
+        
+        if(this.props.data[0] === "")
+        {
+            this.setState(currState=>({
+                alert: !currState.alert
+            }));
+        }
+}
+
+    getOne()
+    {
+
     }
+    
+    
 
     bindDateData()
     {
         //console.log(this.props.data)
+
+
         this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
+        console.log(this.state.day)
     }
 
-     handleSubmit (evt){
-        this.bindDateData()
+    handleSubmit (evt){
+       
          try{
             
           
            
          evt.preventDefault();
-         const {user, taskName , category, month, day, year} = this.state;
+         const {user, taskName , category, month, day, year, severity} = this.state;
          createTask(this.state,
              {
                 user:user,
@@ -64,7 +88,7 @@ export default class Agenda extends Component{
                 //thisDate:thisDate,
                 taskName:taskName,
                 category:category,
-                // severity:severity
+                severity:severity
 
              })
             
@@ -87,6 +111,7 @@ export default class Agenda extends Component{
 
     createATask()
     {
+        
         return(
             <>
                     
@@ -100,7 +125,7 @@ export default class Agenda extends Component{
                      <input placeholder = "Category" type="text" name="category" className='newAg' value={this.state.category} onChange={this.handleInputChange}/>
 
                      <label id='sev'>Severity level:</label>
-                     {/* <input  type="range" name="severity" className='sevBar' value={this.state.severity} onChange={this.handleInputChange}/> */}
+                     <input  type="range" min = "0" max= "10" step = "1" name="severity" className='sevBar' value={this.state.severity} onChange={this.handleInputChange}/>
 
                      {/* <label className='newTask'>Parties:</label>
                      <input type="range" name="involvedParties" className='newAg' value={this.state.involvedParties} onChange={this.handleInputChange}/>
@@ -123,8 +148,11 @@ export default class Agenda extends Component{
     render(){
     return(
         <>
+
+            
+
           {/* {console.log(this.state.month)} */}
-            <button className = "agBtn"onClick={()=>{this.createOne()}}>Add a task</button>
+            <button className = "agBtn"onClick={()=>{this.createOne();this.bindDateData()}}>Add a task</button>
 
             {this.state.createNew ? 
             <>
@@ -132,7 +160,13 @@ export default class Agenda extends Component{
             </>
             : null}
            {/* {console.log(this.state.thisDate)} */}
+            {this.state.alert ?
+            <div className="warning">
+            <p>Please select a date before continuing</p>
+            <p>Otherwise task will not be saved to agenda.</p>
+            </div>
 
+            :null}
            
         </>
 

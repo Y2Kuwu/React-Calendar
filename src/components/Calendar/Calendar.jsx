@@ -5,85 +5,72 @@ import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
+import GetOne from "../GetOne/GetOne";
 
 export default class Calendar extends Component{
 constructor(props){
 super(props)
 this.state =
 {
+    user : '',
     monthName: '',
     dayCount: '',
     dayArray: [],
     monthNumber: '',
-    selectedDay: '',
+    selectedDay: '', //user selected
     selectedYear: '',
     date: '',
 
-    thisDayCap: [],
+    thisDayCap: [], //set intial value w/o click
     fullDate: '',
     showCal: false,
     changeView: false,
+    ready: false,
 
 }
     this.getThisDate = this.getThisDate.bind(this, false);
     this.displayMonth = this.displayMonth.bind(this);
     this.advanceMonth = this.advanceMonth.bind(this);
-    this.decreaseMonth = this.decreaseMonth.bind(this);
 
     this.showHide = this.showHide.bind(this);
-    // this.viewChange = this.viewChange.bind(this)
     this.sendDate = this.sendDate.bind(this);
     this.handleChange = this.handleChange.bind(this)
     this.capDay = this.capDay.bind(this);
 
-    this.test = this.test.bind(this);
+    this.disReady = this.disReady.bind(this);
 }
 
     capDay()
     {
-        // let full = this.state. 
-        this.setState(giveFull =>
+        this.setState(giveFull=>
         ({thisDayCap : [giveFull.monthName,giveFull.selectedDay,giveFull.selectedYear]}))
-        // console.log(this.state.thisDayCap)
+        // if(this.state.thisDayCap = [])
+        // {
+        //     this.setState(
+        //     {thisDayCap : [this.state.monthName, this.state.selectedDay ,this.state.selectedYear]})
+        // }
+        // {thisDayCap : [this.state.monthName ,this.state.selectedDay, this.state.selectedYear]})
+           
+           
+        // {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}
     }
 
-    test()
-    {
-        const img = getUser().profilePicture;
-        // return(
-        //     <>
-        //         {img}
-        //     </>
-
-        // )
-    }
-// getCurrent()
-// {
-
-// }
-
-// displayGrid(count)
-// {
-//     let oneDay = [];
-//     for(let countDays = 0; count < countDays; countDays++)
-//     {
-
-//     }
-// }
 
 
 handleChange(val)
 {
     let value = val.target.value;
     this.setState({give: value});
+    
 
 }
 
-showHide()
+showHide() //2nd
 {
     this.setState(currState=>({
         showCal: !currState.showCal
     }));
+    console.log(this.state.fullDate)
 }
 
 // viewChange()
@@ -96,7 +83,12 @@ showHide()
 // }
 
 
-
+disReady()
+{
+    this.setState(currState=>({
+        ready: !currState.ready
+    }));
+}
 
 displayMonth(currentMonth)
 {
@@ -106,10 +98,6 @@ displayMonth(currentMonth)
     monthDays2.push(29,30);
     let monthDays3 = monthDays2; 
     monthDays3.push(31);
-
-    // for(let i =0; i < monthDays3.length; i++){
-    //console.log(monthDays2[i])
-    //let monthDays3 = monthDays2.push(31);
 
     switch(currentMonth){ //add leap year bool
         case '01':
@@ -128,6 +116,7 @@ displayMonth(currentMonth)
         this.setState({monthName : 'March'});
         this.setState({dayCount : 31})
         this.setState({dayArray: monthDays3})
+        
         break;
         case '04':
         this.setState({monthName : 'April'});
@@ -175,20 +164,17 @@ displayMonth(currentMonth)
         this.setState({dayArray: monthDays3})
         break;
         }
-   // }
-   this.sendDate()
-        //console.log(this.state.monthName)
-       //this.displayGrid(this.state.dayCount)
-    //    console.log(this.state.dayArray)
-    console.log()
-
+        
+       
     
 }
 
-getThisDate()
+getThisDate() //1st
 {
-    this.showHide()
+    
+    this.showHide() //2nd
     this.setState({showCal:true})
+    this.capDay() //3rd //only rec day data
     //const hereDate = await getThisMonth(this.state.date);
     //console.log(hereDate)
     let thisDay = new Date();
@@ -196,14 +182,13 @@ getThisDate()
     let month = String(thisDay.getMonth() + 1).padStart(2, '0');
     let year = thisDay.getFullYear();
 
-   
+    
     
     
 
     //MONTH
     let convertMonth = Number(month)
     let revertMonth;
-    console.log(month)
     //this.setState({monthNumber:convertMonth})
     if(this.state.monthNumber == 0)
     {
@@ -223,16 +208,6 @@ getThisDate()
         this.state.monthNumber = 1;
         revertMonth = String(this.state.monthNumber)
     }
-
-    // else if(this.state.monthNumber < 0)
-    // {
-    //     convertMonth = this.state.monthNumber
-    //     revertMonth = String(this.state.monthNumber)
-    //     //console.log(this.state.monthNumber)
-    // }
-    
-    //console.log(convertMonth)
-    // convertMonth = Number(month) + convertMonth
    
    let dayConvert = String(this.selectedDay);
    let dayRevert = Number(day);
@@ -245,35 +220,33 @@ getThisDate()
 
     thisDay = revertMonth + '/' + dayConvert + '/' + year;
    }
-
+ 
    
     //thisDay = revertMonth + '/' + day + '/' + year;
 
     this.setState({selectedYear : year})
+    
     this.setState({date : thisDay})
     if(convertMonth < 10)
     {
-    this.displayMonth('0' + revertMonth)
+    this.displayMonth('0' + revertMonth) //4th convert month
+
     }
     else
     {
         this.displayMonth(revertMonth)
+    
     }
-    //getThisDay(month);
-
+    console.log(this.state.date)
 }
 
 sendDate()
 {
-    // this.setState(current=>({
-    //     fullDate : current.monthName + '-' + current.selectedDay + '-' + current.selectedYear}))
-    // }
-
     this.setState({
         fullDate : this.state.monthName + '-' + this.state.selectedDay + '-' + this.state.selectedYear}
-    )}
-
-
+    )
+    console.log(this.state.fullDate)
+    }
 advanceMonth()
 {
   
@@ -282,22 +255,17 @@ advanceMonth()
     }));
     this.getThisDate()
 }
-decreaseMonth()
-{
-    // this.setState(this.monthNumber , this.monthNumber-1)
-    this.setState(currMonth=>({
-        monthNumber: currMonth.monthNumber-1
-    }));
-    this.getThisDate()
-}
 
 
 render(){
 return(
     <>
+        
+        
         <div className = "background">
         <button className = "dateBtn"onClick={this.getThisDate = this.getThisDate.bind(this, true)}>Today's date:</button>
-         
+
+
 
  
         <p className = "dateTitle">{this.state.date}</p>
@@ -306,20 +274,23 @@ return(
 
         {this.state.showCal ?
         <>
-         
+       
+
          <Fragment>
+
+
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay()}}>{d}</div>
+            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({selectedDay : thisKey+1});this.capDay();this.disReady()}}>{d}</div>
 
             )}
- 
-          
+
             </div>
             <div className = "newAgenda">
             {/* <Agenda data={this.state.monthName+''+this.state.selectedDay+''+this.state.selectedYear}/> */}
+            {/* <Agenda data={this.state.thisDayCap}/> */}
             <Agenda data={this.state.thisDayCap}/>
-            
+            {/* {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear} */}
 
             </div>
             {/* show month // show day // show year //search*/}
@@ -329,7 +300,10 @@ return(
             
             <p>Selected day: <span>
             <br></br>
+            {/* {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}</span></p> */}
+            
             {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}</span></p>
+
             {/* {console.log(this.state.fullDate)} */}
             
             <button className= "forward"onClick={()=>{this.advanceMonth()}}>next month<ImArrowRight className="arrow"/></button>
@@ -344,7 +318,11 @@ return(
             
             :null}
 
-            <button onClick={this.test()}></button>
+            {this.state.ready?
+        <>
+            <GetOne data = {this.state.thisDayCap}/>
+        </>
+            :null}
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
