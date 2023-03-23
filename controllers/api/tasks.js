@@ -1,4 +1,3 @@
-const { where } = require('../../models/task');
 const Task = require('../../models/task');
 
 function createTask(req,res)
@@ -29,19 +28,42 @@ function createTask(req,res)
         alert("Could not create task")
     }
 }
-async function getOneDay(req,res)
+ async function getOneDay(req,res)
 {
     try{
-        const user = Task.find({user:req.user._id})
-        const userDate = await user.find({}, {'month':req.month, 'day':req.day, 'year':req.year})
+        //const user = await Task.find(req.params)
+        //.where(month).equals(req.body.month)
+        //.where(day).equals(req.body.day)
+        //.where(month).equals(req.body.year)
+       // .then(user.map(j=>j.taskName))
+       console.log(req.params)
+        
+        //const user = await Task.find({p})
+        
+        // let thisDay = parseInt(params.get("day"))
+        // let thisYear = parseInt(params.get("year"))
+        // const userDate = await user.find({})       
+        // const userDate = await user.where({month:req.body.month, day:req.body.day, year:req.body.year})
+       //const {user,month,day,year} = req.body  
+       //const getDates = Task.find({user,month,day,year})
+       //const f = userDate.map(tasks=>(tasks.taskName))
+        
+            //res.json(user.map(j => j.taskName))
+
+            
+        }
+        
         // , month:req.month,day:req.day,year:req.body.year
         //const userDates = await Task.find({user:req.user._id,month:req.body.month,day:req.body.day,year:req.body.year})
         
         //const findUsr = Task.find({user:req.user._id})
         //const findDate = await findUsr.find({month:req.body.month,day:req.body.day,year:req.body.year})
-        // const f = userDate.map(tasks=>(tasks.taskName))
-        console.log(userDate.count)
-        res.json(userDate)
+        catch(error)
+        {
+            res.status(400).json(error)
+            //alert("Could not create task")
+        }
+        
        
         //const newNames = userDates.get('taskName')
         // const dayTask = await userDates.find({month:req.body.month, day:req.body.day, year:req.body.year});
@@ -66,13 +88,10 @@ async function getOneDay(req,res)
      //console.log(userDates)
         // res.json(userDates.map(task=>({task})))
     //    res.json(userDates.map(m => m.taskName))
-        }
-        catch(error)
-        {
-            res.status(400).json(error)
-            //alert("Could not create task")
-        }
+        
+       
 }
+
 
 
 module.exports = 

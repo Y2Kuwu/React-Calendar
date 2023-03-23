@@ -6,6 +6,7 @@ import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
 import GetOne from "../GetOne/GetOne";
+import { getOneDay } from "../../utilities/tasks-api";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -26,6 +27,7 @@ this.state =
     showCal: false,
     changeView: false,
     ready: false,
+    tasks: {},
 
 }
     this.getThisDate = this.getThisDate.bind(this, false);
@@ -38,6 +40,7 @@ this.state =
     this.capDay = this.capDay.bind(this);
 
     this.disReady = this.disReady.bind(this);
+    this.one = this.one.bind(this);
 }
 
     capDay()
@@ -55,7 +58,22 @@ this.state =
         // {this.state.monthName} {this.state.selectedDay} {this.state.selectedYear}
     }
 
+    one()
+    {
+        getOneDay(this.state.thisDayCap)
 
+        return(
+        <>
+        {Object.values(this.state.tasks).map((name ,idx)=>            
+         <div className = "jobTitleList" key = {idx}>
+         <p className = "jobTitleLi"> {name.taskName}</p>
+         </div>
+        )}
+        
+        </>
+        )
+   
+    }
 
 handleChange(val)
 {
@@ -320,7 +338,9 @@ return(
 
             {this.state.ready?
         <>
-            <GetOne data = {this.state.thisDayCap}/>
+            {/* <GetOne data = {this.state.thisDayCap}/> */}
+           {this.one()}
+                
         </>
             :null}
             
