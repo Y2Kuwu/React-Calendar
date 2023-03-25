@@ -16,7 +16,7 @@ const taskSchema = new Schema(
     taskName: 
     {type: String, required: true},
     category:
-    {type: String, required: true},
+    {type: String},
     severity:
     {type: Number},
     // involvedParties:
