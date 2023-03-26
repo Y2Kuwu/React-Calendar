@@ -31,30 +31,38 @@ function createTask(req,res)
 async function getOneDay(req,res)
 {
     try{
-        var thisMonth = req.query.month;
+        var thisMonth = req.body.month;
+        console.log(thisMonth)
         // var thisDay = req.query.day;
         // var thisYear = req.query.year;
-        
-        var mm = req.params ('month')
-       // const {month, day, year} = req.body;
+        // const newTask = Task(
+        //     {
+        //         month: req.params.month,
+                
+        //     }
 
+       // const {month, day, year} = req.body;
+       
+       //const found = Task.find(month , thisMonth)
+        
         // let taskData = Task({
         //     //user: req.body.user,
-        //     // date: req.body.date,
-        //     //taskName: req.body.taskName,
-        //     month: req.params.month,
-        //     day: req.params.day,
-        //     year: req.params.year,
+         //date: req.body.date,
+        //taskName: req.body.taskName,
+           //let compMonth = ({month: 'req.params.month'})
+            // day: req.params.day,
+            // year: req.params.year,
         // })
-        const getDate = await Task.find(mm)
+      
+        
+       //const getDate = await Task.find()
         //console.log(thisMonth)
         //const taskDate = await Task.find().where ('taskDate.month',thisMonth)  ('taskDate.day',thisDay)  ('taskDate.year', thisYear)
 
     //     const taskDate = await Task.find().where('month').equals(thisMonth)  ('day').equals(thisDay)  ('year').equals(thisYear)
     //     //.then(dateData => res.json(dateData))
-   console.log(getDate)
-        
-       res.json(getDate)
+       // console.log(found)
+     //  res.json(found)
 
             
         }

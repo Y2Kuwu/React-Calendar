@@ -7,6 +7,7 @@ import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
 import GetOne from "../GetOne/GetOne";
 import { getOneDay } from "../../utilities/tasks-api";
+import { type } from "@testing-library/user-event/dist/type";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -28,8 +29,6 @@ this.state =
     changeView: false,
     ready: false,
 
-    taskName: 'placeholder',
-
     tasks: {},
 
 }
@@ -39,35 +38,45 @@ this.state =
 
     this.showHide = this.showHide.bind(this);
     this.sendDate = this.sendDate.bind(this);
-    this.handleChange = this.handleChange.bind(this)
     this.capDay = this.capDay.bind(this);
 
     this.disReady = this.disReady.bind(this);
-    this.one = this.one.bind(this);
+    // this.one = this.one.bind(this);
+
+
+    // this.handleIn = this.handleIn.bind(this);
+    // this.handleDateClick = this.handleDateClick.bind(this);
+
 }
 
+    // handleIn (evt){
+    // this.setState({[evt.target.name] : evt.target.value});
+    // }
+
+    // handleDateClick()
+    // {
+    //     this.one()
+    // }
     capDay()
     {
+
+
         this.setState(giveFull=>
         ({thisDayCap : [giveFull.month,giveFull.day,giveFull.year]}))
-
-       
+        //     return(
+        // <form autoComplete="true" onSubmit={this.handleDateClick}>
+        // <input type="text" name="month" value={this.state.month} onChange={this.handleIn}/>
+        // <input type="text" name="day" value={this.state.day} onChange={this.handleIn}/>
+        // <input type="text" name="year" value={this.state.year} onChange={this.handleIn}/>
         
-
-        // if(this.state.thisDayCap = [])
-        // {
-        //     this.setState(
-        //     {thisDayCap : [this.state.month, this.state.day ,this.state.year]})
-        // }
-        // {thisDayCap : [this.state.month ,this.state.day, this.state.year]})
-           
-           
-        // {this.state.month} {this.state.day} {this.state.year}
+        // </form>
+        //     )
+        
     }
 
-    async one()
-    {
-        getOneDay(this.state.month, this.state.day ,this.state.year)
+   
+       
+      
         // const {user, taskName , month, day ,year} = this.state;
         // getOneDay(this.state,
         // {
@@ -88,26 +97,30 @@ this.state =
         //         year:year
         //     })
         // getOneDay(this.state.month, this.state.day ,this.state.year)
-
-        return(
-        <>
-        {Object.values(this.state.tasks).map((name ,idx)=>            
-         <div className = "jobTitleList" key = {idx}>
-         <p className = "jobTitleLi"> {name.taskName}</p>
-         </div>
-        )}
         
-        </>
-        )
-    }
+    //     one(){
+    //         const {month , day, year} = this.state
+    //         getOneDay(this.state,
+    //          {
+    //          month:month,
+    //          day:day,
+    //          year:year
+    //          }
+    //      )
 
-handleChange(val)
-{
-    let value = val.target.value;
-    this.setState({give: value});
-    
+    //     return(
+    //     <>
+    //     {Object.values(this.state.tasks).map((name ,idx)=>            
+    //      <div className = "jobTitleList" key = {idx}>
+    //      <p className = "jobTitleLi"> {name.taskName}</p>
+    //      </div>
+    //     )}
+        
+    //     </>
+    //     )
+    // }
 
-}
+
 
 showHide() //2nd
 {
@@ -325,7 +338,7 @@ return(
 
         <div className="dayGrid">
         {this.state.dayArray.map((d,thisKey)=>
-            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({day : thisKey+1});this.capDay();this.disReady();this.one()}}>{d}</div>
+            <div key = {thisKey} className="dayKeys" onClick={()=>{this.setState({day : thisKey+1});this.capDay();this.disReady()}}>{d}</div>
 
             )}
 
@@ -361,14 +374,14 @@ return(
             
             
             :null}
-
-            {/* {this.state.ready?
+            
+           {this.state.ready?
         <>
-            {/* <GetOne data = {this.state.thisDayCap}/> */}
-           {/* {this.one()} */}
-                
-        {/* </> */}
+            <GetOne data = {this.state.thisDayCap}/> 
            
+           
+      </>
+            :null}
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
