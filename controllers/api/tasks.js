@@ -28,11 +28,34 @@ function createTask(req,res)
         alert("Could not create task")
     }
 }
+
+// function getDayData(dayData)
+// {
+    
+// }
+
 async function getOneDay(req,res)
-{
+{   
     try{
-        var thisMonth = req.body.month;
-        console.log(thisMonth)
+        const date = await Task({
+            //taskName: req.body.taskName,
+            month:req.body.month, 
+            day:req.body.day, 
+            year:req.body.year
+        })
+    
+        if(!date)
+        {res.json(alert("No tasks set for this day"))}
+        if(date)
+        {
+        console.log(date)
+        //const getData = getDayData(date)
+        res.json(date)
+        //res.json(date.map(t=>{t.taskName}))
+        }
+        //var thisMonth = req.query.month;
+
+        
         // var thisDay = req.query.day;
         // var thisYear = req.query.year;
         // const newTask = Task(
@@ -43,7 +66,6 @@ async function getOneDay(req,res)
 
        // const {month, day, year} = req.body;
        
-       //const found = Task.find(month , thisMonth)
         
         // let taskData = Task({
         //     //user: req.body.user,
@@ -62,9 +84,7 @@ async function getOneDay(req,res)
     //     const taskDate = await Task.find().where('month').equals(thisMonth)  ('day').equals(thisDay)  ('year').equals(thisYear)
     //     //.then(dateData => res.json(dateData))
        // console.log(found)
-     //  res.json(found)
-
-            
+        
         }
         
       catch

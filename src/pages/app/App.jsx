@@ -6,7 +6,7 @@ import {Routes, Route} from 'react-router-dom';
 import AuthPage from '../AuthPage/AuthPage';
 import Calendar from '../../components/Calendar/Calendar';
 import Agenda from '../../components/Agenda/Agenda';
-//import GetOne from '../../components/GetOne/GetOne';
+import GetOne from '../../components/GetOne/GetOne';
 
 import NavBar from '../../components/NavBar/NavBar';
 
@@ -31,7 +31,7 @@ function App() {
      
                         <Route path="/" element={<Calendar user={user} setUser={setUser}/>}/>
                         <Route path="/" element={<Agenda user={user} setUser={setUser}/>}/>
-                        {/* <Route path="/" element={<GetOne user={user} setUser={setUser}/>}/> */}
+                        <Route path="/" element={<GetOne user={user} setUser={setUser}/>}/> 
                     </Routes>
                     
                

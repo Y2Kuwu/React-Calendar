@@ -6,9 +6,9 @@ export async function createTask(create)
     return sendRequest(BASE_URL, 'POST', create);
 }
 
-export async function getOneDay(month)
+export async function getOneDay(thisDate)
 {
-    return sendRequest(BASE_URL);
+    return sendRequest(`${BASE_URL}/taskName`, 'POST', thisDate);
     
 }
 
