@@ -102,8 +102,9 @@ export default class Agenda extends Component{
    }
 
 
-    getDateList()
+    async getDateList()
     {
+        
         //get activities generate button with num of actvs for this day 
          //this.setState({thisDate : this.props.fullDate})
         // console.log(this.state.thisDate)

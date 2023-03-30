@@ -10,13 +10,13 @@ const taskSchema = new Schema(
     
 
     month:{type:String},
-    day:{type:Number},
-    year:{type:Number},
+    day:{type:String},
+    year:{type:String},
 
     taskName: 
     {type: String, required: true},
     category:
-    {type: String, required: true},
+    {type: String},
     severity:
     {type: Number},
     // involvedParties:
