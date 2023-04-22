@@ -81,10 +81,10 @@ export default class Agenda extends Component{
          const {user, taskName , category, month, day, year, severity} = this.state;
          createTask(this.state,
              {
-                user:user,
-                month:month,
-                day:day,
-                year:year,
+                //user:user,
+                //month:month,
+                //day:day,
+                //year:year,
                 //thisDate:thisDate,
                 taskName:taskName,
                 category:category,

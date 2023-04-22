@@ -59,9 +59,29 @@ async function getThisMonth(req,res)
     res.json(month)
 }
 
+function createDate(req,res)
+{
+    try{
+    const thisDay = new Day({
+        user: req.body.user,
+        month: req.body.month,
+        day: req.body.day,
+        year: req.body.year
+
+    })
+    thisDay.save();
+    res.json(thisDay);
+}
+catch(error)
+{
+    res.status(400).json(error)
+    alert("Could not create day")
+}
+}
 
 module.exports = 
 {
+    createDate,
     getThisDay,
     getThisMonth,
 }

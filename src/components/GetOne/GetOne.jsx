@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { getUser } from "../../utilities/users-service";
-import { getOneDay } from "../../utilities/tasks-api";
+import { createDate } from "../../utilities/day-api";
 
 export default class GetOne extends Component{
     constructor(props){
@@ -9,16 +9,16 @@ export default class GetOne extends Component{
     {
       user: '',
       
-    //   month: '',
-    //   day: '',
-    //   year: '',
+      month: '',
+      day: '',
+      year: '',
 
-      month: this.props[0],
-      day: this.props[1],
-      year: this.props[2],
+    //   month: this.props[0],
+    //   day: this.props[1],
+    //   year: this.props[2],
         // mdy: this.props
 
-      tasks: {},
+     // tasks: {},
     }
     //this.getDay = this.getDay.bind(this);
     this.setDays = this.setDays.bind(this);
@@ -37,7 +37,7 @@ export default class GetOne extends Component{
     }
 
     async setDays(evt){
-    const {month , day, year} = this.state
+    const {user, month , day, year} = this.state
 
     try{
     evt.preventDefault(evt)
@@ -49,15 +49,15 @@ export default class GetOne extends Component{
 //    })
 //    console.log(giveDate)
 
-   getOneDay(this.state,
+   createDate(this.state,
       
     {
-        
+        user: user,
         month:month,
         day:day,
         year:year,
     })
-    console.log(month)
+    //console.log(month)
     }
     catch{
 
@@ -92,8 +92,9 @@ export default class GetOne extends Component{
        //this.setDays()
     //     //const {month,day,year} = this.state
     //    // this.setState({month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
-        this.setState({user:getUser()._id, month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
+        this.setState({user:getUser(), month : this.props.data[0], day : this.props.data[1], year : this.props.data[2]})
         document.getElementById("subDate").click();
+        this.setDays()
         // this.setDays().then(result => this.setState({
         //      tasks : result
         //  }))
@@ -123,12 +124,12 @@ render(){
     <>
 
     
-         <form type='POST' >
+         <form  >
                   <div className ="setDate">
-                     <input type="hidden" name="month" className='' value={this.state.month}/>
-                     <input type="hidden" name="day" className='' value={this.state.day}/>
-                     <input  type="hidden" name="year" className='' value={this.state.year}/>
-                     <button type="hidden" id = "subDate" onClick={this.setDays}></button>
+                     <input type="" name="month" className='' value={this.state.month}/>
+                     <input type="" name="day" className='' value={this.state.day}/>
+                     <input  type="" name="year" className='' value={this.state.year}/>
+                     <button type="hidden" id = "subDate"></button>
                   </div>
                      
          </form>

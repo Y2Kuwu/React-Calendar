@@ -1,12 +1,12 @@
 import { Component, Fragment } from "react";
-import { getThisDay, getThisMonth } from "../../utilities/day-api";
+// import { getThisDay, getThisMonth } from "../../utilities/day-api";
 import '../../index.css';
 import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
 import GetOne from "../GetOne/GetOne";
-import { getOneDay } from "../../utilities/tasks-api";
+// import { getOneDay } from "../../utilities/tasks-api";
 import { type } from "@testing-library/user-event/dist/type";
 
 export default class Calendar extends Component{
@@ -142,6 +142,7 @@ showHide() //2nd
 
 disReady()
 {
+    
     this.setState(currState=>({
         ready: !currState.ready
     }));
@@ -294,7 +295,7 @@ getThisDate() //1st
         this.displayMonth(revertMonth)
     
     }
-    console.log(this.state.date)
+   
 }
 
 sendDate()
@@ -367,8 +368,8 @@ return(
             
             </div>
             {/* <div className="backForward"> */}
+            {/* {console.log(this.state.thisDayCap)} */}
             
-
             
             </>
             
@@ -381,7 +382,8 @@ return(
            
            
       </>
-            :null}
+            :null} 
+            
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}

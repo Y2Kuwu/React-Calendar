@@ -1,26 +1,27 @@
 const Task = require('../../models/task');
+const Day = require('../../models/day');
 
 function createTask(req,res)
 {
     try{
-    // const userTask = Task.find({user:req.body});
-    userTask =  new Task(
+    const thisDay = Day.find({_id : Day._id});
+    const thisTask =  new Task(
         {
-            user: req.body.user,
-            // date: req.body.date,
-            month: req.body.month,
-            day: req.body.day,
-            year: req.body.year,
+            //user: req.body.user,
+             day: thisDay,
+            //month: req.body.month,
+            //day: req.body.day,
+            //year: req.body.year,
             taskName: req.body.taskName,
             category: req.body.category,
             severity: req.body.severity,
         }
     );
-    userTask.save()
- 
-    //console.log(userTask.date.map(j=>{j}))
-    console.log(userTask.month)
-    res.json(userTask)
+    thisTask.save();
+    thisDay.taskList.push(thisTask);
+    thisTask.save();
+
+    res.json(thisTask)
     }
     catch(error)
     {
@@ -31,26 +32,33 @@ function createTask(req,res)
 
 // function getDayData(dayData)
 // {
-    
+//     console.log(dayData.map(j=>(j.day)))
 // }
 
 async function getOneDay(req,res)
 {   
     try{
-        const date = await Task({
-            //taskName: req.body.taskName,
-            month:req.body.month, 
-            day:req.body.day, 
-            year:req.body.year
+        const date = new Task({
+            //user: req.body.user,
+            //taskName: 'placeholder',
+            //month:req.body.month, 
+            //day:req.body.day, 
+            //year:req.body.year
+            taskName: req.body.taskName,
+            category: req.body.category,
+            severity: req.body.severity
         })
     
         if(!date)
         {res.json(alert("No tasks set for this day"))}
         if(date)
         {
-        console.log(date)
+         
+        console.log(date.month)
         //const getData = getDayData(date)
-        res.json(date)
+        res.json(date.month)
+
+       // getDayData(date)
         //res.json(date.map(t=>{t.taskName}))
         }
         //var thisMonth = req.query.month;
