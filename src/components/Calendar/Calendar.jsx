@@ -1,13 +1,11 @@
 import { Component, Fragment } from "react";
-// import { getThisDay, getThisMonth } from "../../utilities/day-api";
 import '../../index.css';
 import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
 import GetOne from "../GetOne/GetOne";
-// import { getOneDay } from "../../utilities/tasks-api";
-import { type } from "@testing-library/user-event/dist/type";
+
 
 export default class Calendar extends Component{
 constructor(props){
@@ -41,36 +39,15 @@ this.state =
     this.capDay = this.capDay.bind(this);
 
     this.disReady = this.disReady.bind(this);
-    // this.one = this.one.bind(this);
-
-
-    // this.handleIn = this.handleIn.bind(this);
-    // this.handleDateClick = this.handleDateClick.bind(this);
-
 }
 
-    // handleIn (evt){
-    // this.setState({[evt.target.name] : evt.target.value});
-    // }
-
-    // handleDateClick()
-    // {
-    //     this.one()
-    // }
     capDay()
     {
 
 
         this.setState(giveFull=>
         ({thisDayCap : [giveFull.month,giveFull.day,giveFull.year]}))
-        //     return(
-        // <form autoComplete="true" onSubmit={this.handleDateClick}>
-        // <input type="text" name="month" value={this.state.month} onChange={this.handleIn}/>
-        // <input type="text" name="day" value={this.state.day} onChange={this.handleIn}/>
-        // <input type="text" name="year" value={this.state.year} onChange={this.handleIn}/>
-        
-        // </form>
-        //     )
+   
         
     }
 
@@ -129,15 +106,6 @@ showHide() //2nd
     }));
     console.log(this.state.fullDate)
 }
-
-// viewChange()
-// {
-//     this.setState(currState=>({
-//         changeView: currState.this.props.thisView
-       
-//     }));
-//     console.log('here')
-// }
 
 
 disReady()
@@ -233,8 +201,6 @@ getThisDate() //1st
     this.showHide() //2nd
     this.setState({showCal:true})
     this.capDay() //3rd //only rec day data
-    //const hereDate = await getThisMonth(this.state.date);
-    //console.log(hereDate)
     let thisDay = new Date();
     let day = String(thisDay.getDate()).padStart(2, '0');
     let month = String(thisDay.getMonth() + 1).padStart(2, '0');
@@ -345,20 +311,16 @@ return(
 
             </div>
             <div className = "newAgenda">
-            {/* <Agenda data={this.state.month+''+this.state.day+''+this.state.year}/> */}
-            {/* <Agenda data={this.state.thisDayCap}/> */}
+          
             <Agenda data={this.state.thisDayCap}/>
-            {/* {this.state.month} {this.state.day} {this.state.year} */}
 
             </div>
-            {/* show month // show day // show year //search*/}
             
             </Fragment>
             <div className="dayBox">
             
             <p>Selected day: <span>
             <br></br>
-            {/* {this.state.month} {this.state.day} {this.state.year}</span></p> */}
             
             {this.state.month} {this.state.day} {this.state.year}</span></p>
 
@@ -368,7 +330,7 @@ return(
             
             </div>
             {/* <div className="backForward"> */}
-            {/* {console.log(this.state.thisDayCap)} */}
+          
             
             
             </>
