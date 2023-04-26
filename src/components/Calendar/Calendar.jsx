@@ -6,6 +6,7 @@ import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
 // import GetOne from "../GetOne/GetOne";
 import { createDate } from "../../utilities/day-api";
+import React from "react";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -30,6 +31,7 @@ this.state =
     tasks: {},
 
 }
+    this.subDates = React.createRef();
     this.getThisDate = this.getThisDate.bind(this, false);
     this.displayMonth = this.displayMonth.bind(this);
     this.advanceMonth = this.advanceMonth.bind(this);
@@ -42,7 +44,13 @@ this.state =
 
     this.setDays = this.setDays.bind(this);
     this.handleIn = this.handleIn.bind(this);
+    this.autoClick = this.autoClick.bind(this);
 }
+    autoClick()
+    {
+        this.subDates.current.click()
+    }
+
 
        handleIn (evt){
          this.setState({[evt.target.name] : evt.target.value});
@@ -51,27 +59,28 @@ this.state =
     setDays(evt){
     // let user = this.state.user;
    
-    // let currMo = this.state.thisDayCap[0];
-    // let currDay = this.state.thisDayCap[1];
-    // let currYear = this.state.thisDayCap[2];
-    const{user,month,day,year} = this.state;
+    // let currMo = this.state.day;
+    // let currDay = this.state.month;
+    // let currYear = this.state.year;
+   const{user,month,day,year} = this.state;
     
     try{
     evt.preventDefault();
     //console.log(this.state)
     createDate(this.state,
-      
-    {
-       // user: user,
-       // currDay:currDay,
-       // currYear:currYear,
-       // currMo:currMo,
+      {
+    
+       //user: user,
+    //    currDay:currDay,
+    //    currYear:currYear,
+    //    currMo:currMo,
        user:user,
        month:month,
        day:day,
        year:year
-    })
-   console.log( month , day , year)
+      }
+    )
+   //console.log( month , day , year)
     }
     
     catch(error){
@@ -273,6 +282,8 @@ sendDate()
         fullDate : this.state.month + '-' + this.state.day + '-' + this.state.year}
     )
     console.log(this.state.fullDate)
+
+
     }
 advanceMonth()
 {
@@ -315,7 +326,7 @@ return(
             </div>
             <div className = "newAgenda">
           
-            <Agenda data={this.thisDayCap}/>
+            {/* <Agenda data={this.thisDayCap}/> */}
 
             </div>
             
@@ -344,20 +355,23 @@ return(
            {this.state.ready?
         <>
             {/* <GetOne data = {this.state.thisDayCap}/>  */}
-            {/* {this.setDays()} */}
-            {/* {document.getElementById("subDate").click()}; */}
-            <div className ="setDate">
-            <form onSubmit={evt => this.setDays(evt)}>
-                  
            
-                     <input type="" name="month" defaultValue={this.state.month} />
-                     <input type="" name="day" defaultValue={this.state.day}/>
-                     <input type="" name="year" defaultValue={this.state.year}/>
-                     <button type="submit" id = "subDate"></button>
+           
+            {/* onChange={this.handleIn} */}
+            <div className ="setDate">
+            <form onSubmit={this.setDays}>
                   
+                     <input type="text" name="user" value={this.state.user}onChange={this.handleIn}  />
+                     <input type="text" name="month" value={this.state.month} onChange={this.handleIn} />
+                     <input type="text" name="day" value={this.state.day}onChange={this.handleIn} />
+                     <input type="text" name="year" value={this.state.year}onChange={this.handleIn} />
+                     <button type="submit" ref={this.subDates}></button>
+                    {/* {this.subDates.click}; */}
+                    {/* {this.autoClick} */}
+
                      
             </form> 
-            </div>
+            </div> 
             
             {/* {console.log(this.state.thisDayCap)} */}
            

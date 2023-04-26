@@ -19,7 +19,7 @@ const daySchema = new Schema(
     month:{type:String},
     day:{type:Number},
     year:{type:Number},
-    //taskList:[{type: Schema.Types.ObjectId, ref: 'Task'}]
+    //taskList:[{type: Schema.Types.ObjectId, ref: 'Task', default: 'undefined'}]
     //
     // moon:{}, // cycle
     // weather:{}, // local 
