@@ -17,9 +17,9 @@ const daySchema = new Schema(
     // }
 
     month:{type:String},
-    day:{type:String},
-    year:{type:String},
-    taskList:[{type: Schema.Types.ObjectId, ref: 'Task'}]
+    day:{type:Number},
+    year:{type:Number},
+    //taskList:[{type: Schema.Types.ObjectId, ref: 'Task'}]
     //
     // moon:{}, // cycle
     // weather:{}, // local 

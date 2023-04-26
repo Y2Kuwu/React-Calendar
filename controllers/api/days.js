@@ -53,17 +53,17 @@ async function getThisDay(req,res)
     }
 }
 
-async function getThisMonth(req,res)
-{
-    const month = await Day(thisMonth , req.thisMonth)
-    res.json(month)
-}
+// async function getThisMonth(req,res)
+// {
+//     const month = await Day(thisMonth , req.thisMonth)
+//     res.json(month)
+// }
 
 function createDate(req,res)
 {
     try{
     const thisDay = new Day({
-        user: req.body.user,
+        user: req.user._id,
         month: req.body.month,
         day: req.body.day,
         year: req.body.year

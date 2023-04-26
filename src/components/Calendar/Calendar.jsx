@@ -4,8 +4,8 @@ import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
-import GetOne from "../GetOne/GetOne";
-
+// import GetOne from "../GetOne/GetOne";
+import { createDate } from "../../utilities/day-api";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -39,7 +39,47 @@ this.state =
     this.capDay = this.capDay.bind(this);
 
     this.disReady = this.disReady.bind(this);
+
+    this.setDays = this.setDays.bind(this);
+    this.handleIn = this.handleIn.bind(this);
 }
+
+       handleIn (evt){
+         this.setState({[evt.target.name] : evt.target.value});
+     }
+
+    setDays(evt){
+    // let user = this.state.user;
+   
+    // let currMo = this.state.thisDayCap[0];
+    // let currDay = this.state.thisDayCap[1];
+    // let currYear = this.state.thisDayCap[2];
+    const{user,month,day,year} = this.state;
+    
+    try{
+    evt.preventDefault();
+    //console.log(this.state)
+    createDate(this.state,
+      
+    {
+       // user: user,
+       // currDay:currDay,
+       // currYear:currYear,
+       // currMo:currMo,
+       user:user,
+       month:month,
+       day:day,
+       year:year
+    })
+   console.log( month , day , year)
+    }
+    
+    catch(error){
+        alert(error)
+    }
+    }
+
+
 
     capDay()
     {
@@ -54,48 +94,7 @@ this.state =
    
        
       
-        // const {user, taskName , month, day ,year} = this.state;
-        // getOneDay(this.state,
-        // {
-        //    // user: user,
-        //    // taskName:taskName,
-        //     month:month,
-        //     day:day,
-        //     year:year
-        // })
-        //let thisData = (this.state.month , this.state.day, this.state.year)
-        
-        // const {user, month , day , year} = this.state;
-        // getOneDay(this.state,
-        //     {
-        //         user:user,
-        //         month:month,
-        //         day:day,
-        //         year:year
-        //     })
-        // getOneDay(this.state.month, this.state.day ,this.state.year)
-        
-    //     one(){
-    //         const {month , day, year} = this.state
-    //         getOneDay(this.state,
-    //          {
-    //          month:month,
-    //          day:day,
-    //          year:year
-    //          }
-    //      )
-
-    //     return(
-    //     <>
-    //     {Object.values(this.state.tasks).map((name ,idx)=>            
-    //      <div className = "jobTitleList" key = {idx}>
-    //      <p className = "jobTitleLi"> {name.taskName}</p>
-    //      </div>
-    //     )}
-        
-    //     </>
-    //     )
-    // }
+      
 
 
 
@@ -105,6 +104,7 @@ showHide() //2nd
         showCal: !currState.showCal
     }));
     console.log(this.state.fullDate)
+   
 }
 
 
@@ -114,6 +114,9 @@ disReady()
     this.setState(currState=>({
         ready: !currState.ready
     }));
+    
+    this.capDay()
+    
 }
 
 displayMonth(currentMonth)
@@ -312,7 +315,7 @@ return(
             </div>
             <div className = "newAgenda">
           
-            <Agenda data={this.state.thisDayCap}/>
+            <Agenda data={this.thisDayCap}/>
 
             </div>
             
@@ -323,7 +326,7 @@ return(
             <br></br>
             
             {this.state.month} {this.state.day} {this.state.year}</span></p>
-
+            
             {/* {console.log(this.state.fullDate)} */}
             
             <button className= "forward"onClick={()=>{this.advanceMonth()}}>next month<ImArrowRight className="arrow"/></button>
@@ -340,7 +343,23 @@ return(
             
            {this.state.ready?
         <>
-            <GetOne data = {this.state.thisDayCap}/> 
+            {/* <GetOne data = {this.state.thisDayCap}/>  */}
+            {/* {this.setDays()} */}
+            {/* {document.getElementById("subDate").click()}; */}
+            <div className ="setDate">
+            <form onSubmit={evt => this.setDays(evt)}>
+                  
+           
+                     <input type="" name="month" defaultValue={this.state.month} />
+                     <input type="" name="day" defaultValue={this.state.day}/>
+                     <input type="" name="year" defaultValue={this.state.year}/>
+                     <button type="submit" id = "subDate"></button>
+                  
+                     
+            </form> 
+            </div>
+            
+            {/* {console.log(this.state.thisDayCap)} */}
            
            
       </>
@@ -357,3 +376,55 @@ return(
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+  // const {user, taskName , month, day ,year} = this.state;
+        // getOneDay(this.state,
+        // {
+        //    // user: user,
+        //    // taskName:taskName,
+        //     month:month,
+        //     day:day,
+        //     year:year
+        // })
+        //let thisData = (this.state.month , this.state.day, this.state.year)
+        
+        // const {user, month , day , year} = this.state;
+        // getOneDay(this.state,
+        //     {
+        //         user:user,
+        //         month:month,
+        //         day:day,
+        //         year:year
+        //     })
+        // getOneDay(this.state.month, this.state.day ,this.state.year)
+        
+    //     one(){
+    //         const {month , day, year} = this.state
+    //         getOneDay(this.state,
+    //          {
+    //          month:month,
+    //          day:day,
+    //          year:year
+    //          }
+    //      )
+
+    //     return(
+    //     <>
+    //     {Object.values(this.state.tasks).map((name ,idx)=>            
+    //      <div className = "jobTitleList" key = {idx}>
+    //      <p className = "jobTitleLi"> {name.taskName}</p>
+    //      </div>
+    //     )}
+        
+    //     </>
+    //     )
+    // }
