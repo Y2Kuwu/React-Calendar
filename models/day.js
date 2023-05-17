@@ -6,15 +6,20 @@ const Schema = mongoose.Schema;
 const daySchema = new Schema(
 {
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    thisDay:{  //set to current day/month as default
-    type: Date,
-    default: Date.now,
-    required:true
-    },
-    thisMonth:
-    {
-        type: String
-    }
+    // thisDay:{  //set to current day/month as default
+    // type: Date,
+    // default: Date.now,
+    // required:true
+    // },
+    // thisMonth:
+    // {
+    //     type: String
+    // }
+
+    month:{type:String},
+    day:{type:Number},
+    year:{type:Number},
+    //taskList:[{type: Schema.Types.ObjectId, ref: 'Task', default: 'undefined'}]
     //
     // moon:{}, // cycle
     // weather:{}, // local 

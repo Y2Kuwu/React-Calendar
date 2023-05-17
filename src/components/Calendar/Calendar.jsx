@@ -1,13 +1,12 @@
 import { Component, Fragment } from "react";
-import { getThisDay, getThisMonth } from "../../utilities/day-api";
 import '../../index.css';
 import { ImArrowRight } from 'react-icons/im';
 import { ImArrowLeft } from 'react-icons/im';
 import Agenda from "../Agenda/Agenda";
 import { getUser } from "../../utilities/users-service";
-import GetOne from "../GetOne/GetOne";
-import { getOneDay } from "../../utilities/tasks-api";
-import { type } from "@testing-library/user-event/dist/type";
+// import GetOne from "../GetOne/GetOne";
+import { createDate } from "../../utilities/day-api";
+import React from "react";
 
 export default class Calendar extends Component{
 constructor(props){
@@ -32,6 +31,7 @@ this.state =
     tasks: {},
 
 }
+    this.subDates = React.createRef();
     this.getThisDate = this.getThisDate.bind(this, false);
     this.displayMonth = this.displayMonth.bind(this);
     this.advanceMonth = this.advanceMonth.bind(this);
@@ -41,84 +41,69 @@ this.state =
     this.capDay = this.capDay.bind(this);
 
     this.disReady = this.disReady.bind(this);
-    // this.one = this.one.bind(this);
 
-
-    // this.handleIn = this.handleIn.bind(this);
-    // this.handleDateClick = this.handleDateClick.bind(this);
-
+    this.setDays = this.setDays.bind(this);
+    this.handleIn = this.handleIn.bind(this);
+    this.autoClick = this.autoClick.bind(this);
 }
+    autoClick()
+    {
+        this.subDates.current.click()
+    }
 
-    // handleIn (evt){
-    // this.setState({[evt.target.name] : evt.target.value});
-    // }
 
-    // handleDateClick()
-    // {
-    //     this.one()
-    // }
+       handleIn (evt){
+         this.setState({[evt.target.name] : evt.target.value});
+     }
+
+    setDays(evt){
+    // let user = this.state.user;
+   
+    // let currMo = this.state.day;
+    // let currDay = this.state.month;
+    // let currYear = this.state.year;
+   const{user,month,day,year} = this.state;
+    
+    try{
+    evt.preventDefault();
+    //console.log(this.state)
+    createDate(this.state,
+      {
+    
+       //user: user,
+    //    currDay:currDay,
+    //    currYear:currYear,
+    //    currMo:currMo,
+       user:user,
+       month:month,
+       day:day,
+       year:year
+      }
+    )
+   //console.log( month , day , year)
+    }
+    
+    catch(error){
+        alert(error)
+    }
+    }
+
+
+
     capDay()
     {
 
 
         this.setState(giveFull=>
         ({thisDayCap : [giveFull.month,giveFull.day,giveFull.year]}))
-        //     return(
-        // <form autoComplete="true" onSubmit={this.handleDateClick}>
-        // <input type="text" name="month" value={this.state.month} onChange={this.handleIn}/>
-        // <input type="text" name="day" value={this.state.day} onChange={this.handleIn}/>
-        // <input type="text" name="year" value={this.state.year} onChange={this.handleIn}/>
-        
-        // </form>
-        //     )
+   
         
     }
 
    
        
       
-        // const {user, taskName , month, day ,year} = this.state;
-        // getOneDay(this.state,
-        // {
-        //    // user: user,
-        //    // taskName:taskName,
-        //     month:month,
-        //     day:day,
-        //     year:year
-        // })
-        //let thisData = (this.state.month , this.state.day, this.state.year)
-        
-        // const {user, month , day , year} = this.state;
-        // getOneDay(this.state,
-        //     {
-        //         user:user,
-        //         month:month,
-        //         day:day,
-        //         year:year
-        //     })
-        // getOneDay(this.state.month, this.state.day ,this.state.year)
-        
-    //     one(){
-    //         const {month , day, year} = this.state
-    //         getOneDay(this.state,
-    //          {
-    //          month:month,
-    //          day:day,
-    //          year:year
-    //          }
-    //      )
-
-    //     return(
-    //     <>
-    //     {Object.values(this.state.tasks).map((name ,idx)=>            
-    //      <div className = "jobTitleList" key = {idx}>
-    //      <p className = "jobTitleLi"> {name.taskName}</p>
-    //      </div>
-    //     )}
-        
-    //     </>
-    //     )
-    // }
+      
 
 
 
@@ -128,23 +113,19 @@ showHide() //2nd
         showCal: !currState.showCal
     }));
     console.log(this.state.fullDate)
+   
 }
-
-// viewChange()
-// {
-//     this.setState(currState=>({
-//         changeView: currState.this.props.thisView
-       
-//     }));
-//     console.log('here')
-// }
 
 
 disReady()
 {
+    
     this.setState(currState=>({
         ready: !currState.ready
     }));
+    
+    this.capDay()
+    
 }
 
 displayMonth(currentMonth)
@@ -232,8 +213,6 @@ getThisDate() //1st
     this.showHide() //2nd
     this.setState({showCal:true})
     this.capDay() //3rd //only rec day data
-    //const hereDate = await getThisMonth(this.state.date);
-    //console.log(hereDate)
     let thisDay = new Date();
     let day = String(thisDay.getDate()).padStart(2, '0');
     let month = String(thisDay.getMonth() + 1).padStart(2, '0');
@@ -294,7 +273,7 @@ getThisDate() //1st
         this.displayMonth(revertMonth)
     
     }
-    console.log(this.state.date)
+   
 }
 
 sendDate()
@@ -303,6 +282,8 @@ sendDate()
         fullDate : this.state.month + '-' + this.state.day + '-' + this.state.year}
     )
     console.log(this.state.fullDate)
+
+
     }
 advanceMonth()
 {
@@ -344,31 +325,27 @@ return(
 
             </div>
             <div className = "newAgenda">
-            {/* <Agenda data={this.state.month+''+this.state.day+''+this.state.year}/> */}
-            {/* <Agenda data={this.state.thisDayCap}/> */}
-            <Agenda data={this.state.thisDayCap}/>
-            {/* {this.state.month} {this.state.day} {this.state.year} */}
+          
+            {/* <Agenda data={this.thisDayCap}/> */}
 
             </div>
-            {/* show month // show day // show year //search*/}
             
             </Fragment>
             <div className="dayBox">
             
             <p>Selected day: <span>
             <br></br>
-            {/* {this.state.month} {this.state.day} {this.state.year}</span></p> */}
             
             {this.state.month} {this.state.day} {this.state.year}</span></p>
-
+            
             {/* {console.log(this.state.fullDate)} */}
             
             <button className= "forward"onClick={()=>{this.advanceMonth()}}>next month<ImArrowRight className="arrow"/></button>
             
             </div>
             {/* <div className="backForward"> */}
+          
             
-
             
             </>
             
@@ -377,11 +354,31 @@ return(
             
            {this.state.ready?
         <>
-            <GetOne data = {this.state.thisDayCap}/> 
+            {/* <GetOne data = {this.state.thisDayCap}/>  */}
+           
+           
+            {/* onChange={this.handleIn} */}
+            <div className ="setDate">
+            <form onSubmit={this.setDays}>
+                  
+                     <input type="text" name="user" value={this.state.user}onChange={this.handleIn}  />
+                     <input type="text" name="month" value={this.state.month} onChange={this.handleIn} />
+                     <input type="text" name="day" value={this.state.day}onChange={this.handleIn} />
+                     <input type="text" name="year" value={this.state.year}onChange={this.handleIn} />
+                     <button type="submit" ref={this.subDates}></button>
+                    {/* {this.subDates.click}; */}
+                    {/* {this.autoClick} */}
+
+                     
+            </form> 
+            </div> 
+            
+            {/* {console.log(this.state.thisDayCap)} */}
            
            
       </>
-            :null}
+            :null} 
+            
             
                         {/* <button className= "back"onClick={this.decreaseMonth()}><ImArrowLeft/></button> */}
             {/* <button className= "forward"onClick={this.advanceMonth = this.advanceMonth.bind(this, true)}><ImArrowRight/></button> */}
@@ -393,3 +390,55 @@ return(
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+  // const {user, taskName , month, day ,year} = this.state;
+        // getOneDay(this.state,
+        // {
+        //    // user: user,
+        //    // taskName:taskName,
+        //     month:month,
+        //     day:day,
+        //     year:year
+        // })
+        //let thisData = (this.state.month , this.state.day, this.state.year)
+        
+        // const {user, month , day , year} = this.state;
+        // getOneDay(this.state,
+        //     {
+        //         user:user,
+        //         month:month,
+        //         day:day,
+        //         year:year
+        //     })
+        // getOneDay(this.state.month, this.state.day ,this.state.year)
+        
+    //     one(){
+    //         const {month , day, year} = this.state
+    //         getOneDay(this.state,
+    //          {
+    //          month:month,
+    //          day:day,
+    //          year:year
+    //          }
+    //      )
+
+    //     return(
+    //     <>
+    //     {Object.values(this.state.tasks).map((name ,idx)=>            
+    //      <div className = "jobTitleList" key = {idx}>
+    //      <p className = "jobTitleLi"> {name.taskName}</p>
+    //      </div>
+    //     )}
+        
+    //     </>
+    //     )
+    // }

@@ -5,13 +5,8 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema(
 {
-    //day: {type: Schema.Types.ObjectId, ref: 'Day', required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    
+    day: {type: Schema.Types.ObjectId, ref: 'Day', required: true},
 
-    month:{type:String},
-    day:{type:String},
-    year:{type:String},
 
     taskName: 
     {type: String, required: true},
